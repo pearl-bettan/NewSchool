@@ -12,6 +12,19 @@ python3 -m http.server 8000
 
 פתחו http://localhost:8000/index.html. אין לפתוח ב־file://: דפדפנים עשויים לחסום מודולים. כל הנכסים מקומיים, ולכן לאחר הפעלת השרת אין תלות באינטרנט. לעצירה: Ctrl+C.
 
+## פרסום ב־GitHub Pages
+
+קובצי האתר נשארים בתיקיית `src/`. התהליך `.github/workflows/pages.yml` מפרסם את תוכן התיקייה כך ש־`index.html` נמצא בשורש האתר הציבורי.
+
+1. במאגר ב־GitHub פתחו **Settings → Pages → Build and deployment**.
+2. בשדה **Source** בחרו **GitHub Actions** במקום **Deploy from a branch**. אין לבחור תיקיית פרסום במצב זה.
+3. בצעו commit ו־push של קובץ התהליך לענף `main`. התהליך ירוץ בכל push לענף זה; ניתן להפעיל אותו גם דרך **Actions → Deploy website to GitHub Pages → Run workflow**.
+4. המתינו לסיום מוצלח של הפריסה בלשונית **Actions**.
+
+כתובת האתר לאחר פריסה מוצלחת: https://pearl-bettan.github.io/NewSchool/
+
+אין צורך להעביר את קובצי האתר ל־`docs/` או לשורש המאגר. רק תוכן `src/` נכלל בפריסה; מסמכי המטלה והסקילים אינם חלק מחבילת האתר.
+
 ## מבנה
 
 - index.html: תוכן, ניווט, חיווי התקדמות ושתי מסגרות הפעילויות.
