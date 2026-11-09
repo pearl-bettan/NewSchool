@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="New School">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="he_IL">
+    <title>New School – בודקים הבנה בתכנון למידה</title>
+    <meta
+      name="description"
+      content="בודקים הבנה בתכנון למידה: פעילות עצמאית ביחידת מתכננים למידה לבוחן."
+    >
+    <meta name="keywords" content="בודקים הבנה בתכנון למידה, פעילות, למידה">
+    <meta property="og:title" content="בודקים הבנה בתכנון למידה | New School">
+    <meta property="og:description" content="פעילות קצרה לתכנון למידה לבוחן.">
+    <link rel="icon" href="../assets/images/logo.svg">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+
+  <body class="activity-body">
+    <main class="activity-main">
+      <h1 class="activity-title">בודקים הבנה בתכנון למידה</h1>
+      <noscript>יש להפעיל JavaScript כדי להשתמש בפעילות.</noscript>
+      <form id="quiz-form" novalidate>
+        <div id="quiz-questions"></div>
+        <div class="quiz-actions">
+          <button type="submit" class="btn btn-primary">בדיקת תשובות</button>
+          <button type="reset" class="btn btn-outline-primary">נסו שוב</button>
+        </div>
+      </form>
+      <div id="quiz-summary" class="summary-card" hidden>
+        <h2 id="summary-heading" tabindex="-1">סיכום התשובות</h2>
+        <div id="summary-content"></div>
+      </div>
+    </main>
+    <script src="../assets/vendor/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../js/quiz.js"></script>
+  </body>
+</html>
