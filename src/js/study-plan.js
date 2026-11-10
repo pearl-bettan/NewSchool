@@ -32,6 +32,8 @@ const studyPlan = document.querySelector('#study-plan');
 studyPlan.innerHTML = STUDY_PLAN.map(renderDay).join('');
 
 let pendingButton = null;
+let keyboardButton = null;
+const panelsToClose = new Set();
 
 function openFocusedBlock() {
   const button = pendingButton;
@@ -42,14 +44,41 @@ function openFocusedBlock() {
   if (panel.classList.contains('show')) pendingButton = null;
 }
 
+function closePreviousBlocks() {
+  for (const panel of panelsToClose) {
+    if (panel.classList.contains('collapsing')) continue;
+    bootstrap.Collapse.getOrCreateInstance(panel, { toggle: false }).hide();
+    if (!panel.classList.contains('show') && !panel.classList.contains('collapsing')) {
+      panelsToClose.delete(panel);
+    }
+  }
+}
+
 studyPlan.addEventListener('focusin', event => {
-  pendingButton = event.target.closest('.accordion-button');
+  const button = event.target.closest('.accordion-button');
+  if (!button || !button.matches(':focus-visible')) return;
+  keyboardButton = button;
+  pendingButton = button;
+  panelsToClose.delete(document.getElementById(button.getAttribute('aria-controls')));
   openFocusedBlock();
 });
 
-// Retry the latest focus request if a previous accordion transition blocked it.
-studyPlan.addEventListener('shown.bs.collapse', openFocusedBlock);
-studyPlan.addEventListener('hidden.bs.collapse', openFocusedBlock);
+studyPlan.addEventListener('focusout', event => {
+  const button = event.target.closest('.accordion-button');
+  if (!button || button !== keyboardButton) return;
+  keyboardButton = null;
+  if (pendingButton === button) pendingButton = null;
+  panelsToClose.add(document.getElementById(button.getAttribute('aria-controls')));
+  closePreviousBlocks();
+});
+
+// Finish closing the old block before retrying focus during a Bootstrap transition.
+function synchronizeFocusedBlocks() {
+  closePreviousBlocks();
+  openFocusedBlock();
+}
+studyPlan.addEventListener('shown.bs.collapse', synchronizeFocusedBlocks);
+studyPlan.addEventListener('hidden.bs.collapse', synchronizeFocusedBlocks);
 studyPlan.addEventListener('keydown', event => {
   if (event.key === 'Enter' || event.key === ' ') pendingButton = null;
 });
