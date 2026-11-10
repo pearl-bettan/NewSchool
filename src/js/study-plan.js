@@ -28,5 +28,31 @@ function renderDay(day) {
   const minutes = day.blocks.reduce((sum, block) => sum + block.minutes, 0);
   return `<div class="col-12 col-lg-4"><article class="plan-day" aria-labelledby="day-title-${day.day}"><div class="day-heading"><h2 id="day-title-${day.day}">${day.label}</h2><span>${minutes} דקות בסך הכול</span></div><div class="accordion" id="day-${day.day}">${day.blocks.map(block => renderBlock(block, day.day)).join('')}</div></article></div>`;
 }
-document.querySelector('#study-plan').innerHTML = STUDY_PLAN.map(renderDay).join('');
+const studyPlan = document.querySelector('#study-plan');
+studyPlan.innerHTML = STUDY_PLAN.map(renderDay).join('');
+
+let pendingButton = null;
+
+function openFocusedBlock() {
+  const button = pendingButton;
+  if (!button || document.activeElement !== button || !button.matches(':focus-visible')) return;
+
+  const panel = document.getElementById(button.getAttribute('aria-controls'));
+  bootstrap.Collapse.getOrCreateInstance(panel, { toggle: false }).show();
+  if (panel.classList.contains('show')) pendingButton = null;
+}
+
+studyPlan.addEventListener('focusin', event => {
+  pendingButton = event.target.closest('.accordion-button');
+  openFocusedBlock();
+});
+
+// Retry the latest focus request if a previous accordion transition blocked it.
+studyPlan.addEventListener('shown.bs.collapse', openFocusedBlock);
+studyPlan.addEventListener('hidden.bs.collapse', openFocusedBlock);
+studyPlan.addEventListener('keydown', event => {
+  if (event.key === 'Enter' || event.key === ' ') pendingButton = null;
+});
+studyPlan.addEventListener('pointerdown', () => { pendingButton = null; });
+
 reportHeight();

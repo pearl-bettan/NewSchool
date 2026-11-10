@@ -72,9 +72,24 @@ function showSummary(score, results) {
   const standalone = window.parent === window;
   document.querySelector('#summary-content').innerHTML = `<p class="score-value">${Number(score.points.toFixed(2))} מתוך ${score.maxPoints} · ${score.percent}%</p><p>${score.passed ? `הגעתם לרף ההצלחה (${PASS_PERCENT}%).` : `רף ההצלחה הוא ${PASS_PERCENT}%; אפשר לתקן ולבדוק שוב.`} ${band}</p>${steps.length ? `<p>כדאי לחזור אל:</p><ul>${steps.map(id => `<li><a href="${standalone ? '../index.html' : ''}#${id}" data-revisit="${id}">${labels[id]}</a></li>`).join('')}</ul>` : ''}`;
 }
+function navigateRadioOptions(event) {
+  if (event.key !== 'Tab' || event.altKey || event.ctrlKey || event.metaKey) return;
+  const radio = event.target.closest('input[type="radio"]');
+  if (!radio) return;
+
+  const options = [...radio.closest('fieldset').querySelectorAll('input[type="radio"]:not(:disabled)')];
+  const nextIndex = options.indexOf(radio) + (event.shiftKey ? -1 : 1);
+  const nextOption = options[nextIndex];
+  if (!nextOption) return;
+
+  event.preventDefault();
+  nextOption.focus();
+}
+
 function initializeQuiz() {
   renderQuiz();
   const form = document.querySelector('#quiz-form');
+  form.addEventListener('keydown', navigateRadioOptions);
   form.addEventListener('submit', event => {
     event.preventDefault();
     const results = QUESTIONS.map(question => {
