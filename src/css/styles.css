@@ -35,6 +35,7 @@
   --line-height-base: 1.8;
   --radius: 1rem;
   --space-section: clamp(2.5rem, 6vw, 5rem);
+  --learning-scroll-offset: 11rem;
   --bs-body-font-family: var(--font-base);
   --bs-body-font-size: var(--font-size-base);
   --bs-body-line-height: var(--line-height-base);
@@ -64,7 +65,7 @@ a, button { touch-action: manipulation; }
 fieldset { min-width: 0; }
 p { max-width: 72ch; }
 section {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: var(--learning-scroll-offset);
   padding-block: var(--space-section);
   border-block-end: 1px solid var(--color-border);
 }
@@ -91,6 +92,10 @@ header { background: var(--color-surface); }
   text-decoration-thickness: 2px;
 }
 .nav-link:hover { color: var(--color-primary); text-decoration: underline; }
+#main-nav .navbar-nav { gap: .35rem; }
+#main-nav .nav-link { padding-inline: 1rem; }
+#main-nav .nav-item + .nav-item { border-block-start: 1px solid #a4b9b4; }
+
 .hero {
   background: var(--color-bg);
   border-block-start: 1px solid var(--color-border);
@@ -124,13 +129,64 @@ header { background: var(--color-surface); }
   position: sticky;
   top: 0;
   z-index: 1020;
-  background: var(--color-primary);
-  color: white;
+  background: var(--color-bg);
+  color: var(--color-primary);
 }
-.progress-inner { display: flex; align-items: center; gap: 1rem; padding-block: .85rem; font-size: .85rem; }
-.progress { flex: 1; height: 5px; --bs-progress-bg: #23474d; --bs-progress-bar-bg: var(--color-mustard); }
-.progress-start { width: 20%; }
-.progress-caption { display: none; }
+.progress-inner { padding: .65rem 1rem; }
+#progress-label { font-size: .85rem; margin-block: 0 .5rem; }
+.progress-body { position: relative; }
+.progress {
+  height: 5px;
+  margin-block-end: .5rem;
+  --bs-progress-bg: var(--color-border);
+  --bs-progress-bar-bg: var(--color-primary);
+}
+.progress-bar { width: var(--progress-percent, 20%); }
+.progress-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  min-height: 44px;
+  padding: .35rem .15rem;
+  color: var(--color-muted);
+  border-radius: .5rem;
+  text-decoration: none;
+  text-align: center;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+.progress-step-number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #758b86;
+  border-radius: 50%;
+  background: var(--color-surface);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.progress-step:hover, .progress-step[aria-current="step"] {
+  background: #e7f4f2;
+  color: var(--color-primary);
+}
+.progress-step[aria-current="step"] { font-weight: 750; }
+.progress-step[aria-current="step"] .progress-step-number {
+  background: var(--color-mustard);
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+.progress-step:focus-visible { outline-color: var(--color-primary); outline-offset: 2px; }
 .section-heading { display: flex; gap: 1rem; align-items: flex-start; margin-block-end: 1.5rem; }
 .step-number {
   display: grid;
@@ -149,7 +205,7 @@ header { background: var(--color-surface); }
 .hero .eyebrow { display: inline-flex; gap: .6rem; align-items: center; }
 .hero .eyebrow::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--color-turquoise); }
 .section-heading .eyebrow { display: block; margin-block-end: .4rem; }
-.activity-frame { width: 100%; border: 0; display: block; scroll-margin-top: 6rem; }
+.activity-frame { width: 100%; border: 0; display: block; scroll-margin-top: var(--learning-scroll-offset); }
 .activity-link { display: inline-block; font-size: .9rem; padding-block: .85rem; }
 .footer-inner { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; padding-block: 2.5rem; }
 footer { background: var(--color-primary); color: white; border-block-start: 5px solid var(--color-mustard); }
@@ -275,12 +331,58 @@ footer :focus-visible { outline-color: white; }
   .question-card { padding: 1.5rem; }
   .section-heading { align-items: center; }
   .review-flow, .order-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .progress-caption { display: inline; }
   .hero { padding-block: 3.5rem; }
   #step-plan { margin-inline: 0; padding-inline: 1.5rem; }
 }
 
+/* Match the Bootstrap navbar expansion breakpoint. */
+@media (min-width: 992px) {
+  #main-nav .nav-item + .nav-item {
+    border-block-start: 0;
+    border-inline-start: 1px solid #a4b9b4;
+  }
+}
+
 @media (min-width: 1200px) {
+  :root { --learning-scroll-offset: 2rem; }
+  .learning-layout {
+    display: grid;
+    grid-template-columns: 13.5rem minmax(0, 1fr);
+    align-items: start;
+    gap: 2rem;
+    max-width: 1436px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  .learning-layout > main.container { min-width: 0; padding-inline: 0; }
+  .progress-shell {
+    top: 1rem;
+    height: calc(100vh - 2rem);
+    height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    border-radius: 0;
+  }
+  .progress-inner { display: flex; flex-direction: column; height: 100%; padding: 1.25rem; }
+  #progress-label { margin-block-end: 1.25rem; font-size: 1rem; }
+  .progress-body { flex: 1; min-height: 18rem; }
+  .progress {
+    position: absolute;
+    inset-inline-start: 1.45rem;
+    inset-block: 1.85rem;
+    width: 4px;
+    height: auto;
+    margin: 0;
+  }
+  .progress-bar { width: 100%; height: var(--progress-percent, 20%); }
+  .progress-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: .75rem;
+  }
+  .progress-step { flex-direction: row; gap: .75rem; padding: .6rem .25rem; text-align: start; font-size: .9rem; }
   .hero { padding-block: 4rem; }
   .hero-visual { padding-inline-start: 1rem; }
 }
