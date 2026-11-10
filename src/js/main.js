@@ -2,6 +2,25 @@ const frames = [...document.querySelectorAll('.activity-frame')];
 const sections = [...document.querySelectorAll('main > section')];
 const progress = document.querySelector('[role="progressbar"]');
 const progressLinks = [...document.querySelectorAll('.progress-step')];
+const scrollBrush = document.querySelector('.scroll-brush');
+if (scrollBrush) {
+  let brushUpdatePending = false;
+  function updateBrush() {
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollableHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollableHeight)) : 0;
+    scrollBrush.style.setProperty('--brush-offset', 100 * (1 - progress));
+    brushUpdatePending = false;
+  }
+  function scheduleBrushUpdate() {
+    if (!brushUpdatePending) {
+      brushUpdatePending = true;
+      requestAnimationFrame(updateBrush);
+    }
+  }
+  window.addEventListener('scroll', scheduleBrushUpdate, { passive: true });
+  window.addEventListener('resize', scheduleBrushUpdate);
+  updateBrush();
+}
 let selectedSection = null;
 let selectedSectionSeen = false;
 function updateProgress(index) {
@@ -59,3 +78,58 @@ window.addEventListener('message', event => {
 document.querySelectorAll('#main-nav a').forEach(link => link.addEventListener('click', () => {
   bootstrap.Collapse.getInstance(document.querySelector('#main-nav'))?.hide();
 }));
+
+document.querySelectorAll('.greeting-button').forEach(button => {
+  function speakGreeting() {
+    const status = document.querySelector('#speech-status');
+    if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) {
+      status.textContent = 'השמעת הברכות אינה זמינה בדפדפן הזה.';
+      return;
+    }
+    const language = button.dataset.language;
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(item => item.lang.toLowerCase().split('-')[0] === language.toLowerCase().split('-')[0]);
+    if (voices.length && !voice) {
+      status.textContent = 'לא נמצא קול מתאים לשפה הזאת במכשיר.';
+      return;
+    }
+    status.textContent = '';
+    const utterance = new SpeechSynthesisUtterance(button.dataset.speech);
+    utterance.lang = language;
+    if (voice) utterance.voice = voice;
+    utterance.onerror = event => {
+      if (!['canceled', 'interrupted'].includes(event.error)) status.textContent = 'לא ניתן להשמיע את הברכה במכשיר הזה.';
+    };
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  }
+  button.addEventListener('click', speakGreeting);
+  button.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      speakGreeting();
+    }
+  });
+});
+
+const globeMotionButton = document.querySelector('#globe-motion-toggle');
+if (globeMotionButton) {
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const globeMotion = document.querySelector('#globe-surface').animate([
+    { transform: 'translateX(0px)' },
+    { transform: 'translateX(-290px)' }
+  ], { duration: 12000, iterations: Infinity, easing: 'linear' });
+
+  function setGlobeMotion(running) {
+    if (running) globeMotion.play();
+    else globeMotion.pause();
+    globeMotionButton.textContent = running ? 'עצירת סיבוב הגלובוס' : 'הפעלת סיבוב הגלובוס';
+  }
+
+  setGlobeMotion(!motionPreference.matches);
+  globeMotionButton.hidden = false;
+  globeMotionButton.addEventListener('click', () => setGlobeMotion(globeMotion.playState !== 'running'));
+  motionPreference.addEventListener('change', () => {
+    if (motionPreference.matches) setGlobeMotion(false);
+  });
+}

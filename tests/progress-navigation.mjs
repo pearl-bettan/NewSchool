@@ -15,7 +15,7 @@ function setup(reducedMotion=false) {
   const frame={contentWindow:{},style:{}};
   const document={
     querySelectorAll(selector){return selector==='.activity-frame'?[frame]:selector==='main > section'?sections:selector==='.progress-step'?links:[];},
-    querySelector(selector){return selector==='[role="progressbar"]'?progress:label;},
+    querySelector(selector){return selector==='[role="progressbar"]'?progress:selector==='#progress-label'?label:null;},
     getElementById(id){return sections.find(section=>section.id===id);}
   };
   vm.runInNewContext(fs.readFileSync(path.join(root,'src/js/main.js'),'utf8'),{
