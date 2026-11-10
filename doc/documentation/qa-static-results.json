@@ -1,0 +1,148 @@
+{
+  "scope": "Static HTML and numerical contrast checks; no rendered layout audit",
+  "checks": [
+    {
+      "id": "H-index.html",
+      "description": "NewSchool/src/index.html",
+      "status": "passed",
+      "actual": {
+        "links": 13,
+        "h1": 1,
+        "rtl": true
+      }
+    },
+    {
+      "id": "H-quiz.html",
+      "description": "NewSchool/src/activities/quiz.html",
+      "status": "passed",
+      "actual": {
+        "links": 5,
+        "h1": 1,
+        "rtl": true
+      }
+    },
+    {
+      "id": "H-study-plan.html",
+      "description": "NewSchool/src/activities/study-plan.html",
+      "status": "passed",
+      "actual": {
+        "links": 5,
+        "h1": 1,
+        "rtl": true
+      }
+    },
+    {
+      "id": "H-section",
+      "description": "Five learning sections and two activities",
+      "status": "passed",
+      "actual": {
+        "sections": 5,
+        "frames": 2
+      }
+    },
+    {
+      "id": "C1",
+      "description": "#383623 on #fbfaf6",
+      "status": "passed",
+      "actual": {
+        "ratio": 11.69,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C2",
+      "description": "#383623 on #b8a518",
+      "status": "passed",
+      "actual": {
+        "ratio": 4.9,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C3",
+      "description": "#ffffff on #2e5c63",
+      "status": "passed",
+      "actual": {
+        "ratio": 7.43,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C4",
+      "description": "#ffffff on #23474d",
+      "status": "passed",
+      "actual": {
+        "ratio": 10.1,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C5",
+      "description": "#2e5c63 on #e7f4f2",
+      "status": "passed",
+      "actual": {
+        "ratio": 6.59,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C6",
+      "description": "#575c52 on #edf4f0",
+      "status": "passed",
+      "actual": {
+        "ratio": 6.15,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C7",
+      "description": "#655a0b on #e7f4f2",
+      "status": "passed",
+      "actual": {
+        "ratio": 6.16,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C8",
+      "description": "#655a0b on #f8f3d5",
+      "status": "passed",
+      "actual": {
+        "ratio": 6.21,
+        "threshold": 4.5
+      }
+    },
+    {
+      "id": "C9",
+      "description": "#758b86 on #ffffff",
+      "status": "passed",
+      "actual": {
+        "ratio": 3.62,
+        "threshold": 3
+      }
+    },
+    {
+      "id": "C10",
+      "description": "#b8a518 on #23474d",
+      "status": "passed",
+      "actual": {
+        "ratio": 4.05,
+        "threshold": 3
+      }
+    },
+    {
+      "id": "C11",
+      "description": "#8b2020 on #fff0f0",
+      "status": "passed",
+      "actual": {
+        "ratio": 8.16,
+        "threshold": 4.5
+      }
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "scope": "Local HTTP 200 and complete response content compared with local files; not browser testing",
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "path": "index.html",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 12651
+    },
+    {
+      "path": "CREDITS.md",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 1490
+    },
+    {
+      "path": "css/styles.css",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 13211
+    },
+    {
+      "path": "js/activity-bridge.js",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 974
+    },
+    {
+      "path": "js/quiz-data.js",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 4505
+    },
+    {
+      "path": "js/quiz.js",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 10153
+    },
+    {
+      "path": "js/study-plan.js",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 3726
+    },
+    {
+      "path": "js/main.js",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 2167
+    },
+    {
+      "path": "activities/quiz.html",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 2013
+    },
+    {
+      "path": "activities/study-plan.html",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 1561
+    },
+    {
+      "path": "assets/images/hero.svg",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 2782
+    },
+    {
+      "path": "assets/images/logo.svg",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 451
+    },
+    {
+      "path": "assets/vendor/bootstrap.bundle.min.js",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 80721
+    },
+    {
+      "path": "assets/vendor/bootstrap.rtl.min.css",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 232911
+    },
+    {
+      "path": "assets/vendor/heebo-hebrew.woff2",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 12032
+    },
+    {
+      "path": "assets/vendor/heebo-latin.woff2",
+      "status": "passed",
+      "httpStatus": 200,
+      "bytes": 30180
+    }
+  ]
+}

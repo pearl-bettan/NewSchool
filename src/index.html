@@ -90,7 +90,8 @@
                   src="assets/images/hero.svg"
                   width="540"
                   height="490"
-                  alt=""
+                  alt="גלובוס עם ברכות באנגלית, בערבית ובצרפתית"
+                  aria-label="גלובוס עם ברכות באנגלית, בערבית ובצרפתית"
                 >
                 <figcaption class="hero-caption">כל שפה פותחת עולם. כל תוכנית מתחילה בצעד.</figcaption>
               </figure>
@@ -117,7 +118,7 @@
     </div>
 
     <main id="main-content" tabindex="-1" class="container">
-      <section id="step-goal" aria-labelledby="goal-title">
+      <section id="step-goal" aria-labelledby="goal-title" tabindex="0">
         <div class="section-heading">
           <span class="step-number">01</span>
           <div>
@@ -145,7 +146,7 @@
         <p class="takeaway"><strong>הנוסחה ליעד ברור:</strong> מה עושים + כמה עושים + עד מתי</p>
       </section>
 
-      <section id="step-split" aria-labelledby="split-title">
+      <section id="step-split" aria-labelledby="split-title" tabindex="0">
         <div class="section-heading">
           <span class="step-number">02</span>
           <div>
@@ -189,7 +190,7 @@
         </div>
       </section>
 
-      <section id="step-review" aria-labelledby="review-title">
+      <section id="step-review" aria-labelledby="review-title" tabindex="0">
         <div class="section-heading">
           <span class="step-number">03</span>
           <div>
@@ -203,24 +204,31 @@
         </p>
         <div class="review-flow">
           <div>
-            <span aria-hidden="true">↶</span>
+            <span role="img" aria-label="חץ חזרה המסמל חזרה קצרה על החומר">↶</span>
             <strong>חזרה קצרה</strong>
             <span>מה אני זוכר/ת מאתמול?</span>
           </div>
           <div>
-            <span aria-hidden="true">▤</span>
+            <span role="img" aria-label="מטרה המסמלת למידה ממוקדת במשימה מוגדרת">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" aria-hidden="true" focusable="false" fill="currentColor" class="bi bi-bullseye" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10m0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
+                <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"/>
+                <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+              </svg>
+            </span>
             <strong>למידה ממוקדת</strong>
             <span>משימה קטנה ומוגדרת</span>
           </div>
           <div>
-            <span aria-hidden="true">✓</span>
+            <span role="img" aria-label="סימן אישור המסמל בדיקת הבנה באמצעות תרגול">✓</span>
             <strong>תרגול בשאלות</strong>
             <span>מה כבר הבנתי, ומה עוד לחזק?</span>
           </div>
         </div>
       </section>
 
-      <section id="step-plan" aria-labelledby="plan-title">
+      <section id="step-plan" aria-labelledby="plan-title" tabindex="0">
         <div class="section-heading">
           <span class="step-number">04</span>
           <div>
@@ -243,7 +251,7 @@
         </a>
       </section>
 
-      <section id="step-quiz" aria-labelledby="quiz-title">
+      <section id="step-quiz" aria-labelledby="quiz-title" tabindex="0">
         <div class="section-heading">
           <span class="step-number">05</span>
           <div>

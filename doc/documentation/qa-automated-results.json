@@ -1,0 +1,1223 @@
+{
+  "executedAt": "2026-11-09T11:39:42.889Z",
+  "scope": "Automated JavaScript checks and mocked DOM/message tests; not browser tests",
+  "hashes": {
+    "index.html": "176a4f398ceadc58790839e628464e92d0013e31ec6c15ebd1b1bd21c1c46a23",
+    "css/styles.css": "c6a0528b5843e0bc752eb38e7975254545849362a0dae9d5986639c36a50779c",
+    "js/quiz.js": "38a6ce94a9922daf3b9f3ca1ac248104d86d8b8085da8b7759d17edc193369e6",
+    "js/quiz-data.js": "0787d3820d4ffb496a77fba36c64ff873db3483903474c178e86dcb0ae92d7cf",
+    "js/main.js": "10e99274f02acf069f3917d6b0fe7e742ed445698107cc75f51835333fd51059",
+    "js/activity-bridge.js": "43872ed2f07147fa166b8160dbd094bb1273321daff6cbfa5bb7afe25ad3cd80"
+  },
+  "summary": {
+    "total": 87,
+    "passed": 86,
+    "failed": 1
+  },
+  "tests": [
+    {
+      "id": "L1",
+      "description": "Q1: \"\"",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו את היעד הברור ביותר."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L2",
+      "description": "Q1: null",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו את היעד הברור ביותר."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L3",
+      "description": "Q1: undefined",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו את היעד הברור ביותר."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L4",
+      "description": "Q2: \"\"",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. סמנו לפחות פעולה אחת."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L5",
+      "description": "Q2: null",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. סמנו לפחות פעולה אחת."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L6",
+      "description": "Q2: undefined",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. סמנו לפחות פעולה אחת."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L7",
+      "description": "Q3: \"\"",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו משימה בכל אחד משלושת המקומות."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L8",
+      "description": "Q3: null",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו משימה בכל אחד משלושת המקומות."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L9",
+      "description": "Q3: undefined",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו משימה בכל אחד משלושת המקומות."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L10",
+      "description": "Q4: \"\"",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו את המשימה שאפשר לדעת מתי הושלמה."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L11",
+      "description": "Q4: null",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו את המשימה שאפשר לדעת מתי הושלמה."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L12",
+      "description": "Q4: undefined",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו את המשימה שאפשר לדעת מתי הושלמה."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L13",
+      "description": "Q5: \"\"",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו פעולה, הזינו כמות וציינו שעת סיום."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L14",
+      "description": "Q5: null",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו פעולה, הזינו כמות וציינו שעת סיום."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L15",
+      "description": "Q5: undefined",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו פעולה, הזינו כמות וציינו שעת סיום."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L16",
+      "description": "Q1: \"a\"",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. יעד ברור כולל משימה, כמות ומועד. חזרו לשלב 1 והשוו בין הדוגמאות."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L17",
+      "description": "Q1: \"b\"",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד מציין מה עושים, כמה ועד מתי."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L18",
+      "description": "Q1: \"c\"",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. יעד ברור כולל משימה, כמות ומועד. חזרו לשלב 1 והשוו בין הדוגמאות."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L19",
+      "description": "Q4: \"a\"",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. המשימה שבחרתם רחבה ולא ברור מתי מסתיימת. נסו פעולה מוגדרת, כמו פתרון 3 שאלות בנושא ב. חזרו לשלב 2."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L20",
+      "description": "Q4: \"b\"",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. הפעולה וההיקף מוגדרים, ולכן אפשר לדעת מתי המשימה הסתיימה."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L21",
+      "description": "Q4: \"c\"",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. המשימה שבחרתם רחבה ולא ברור מתי מסתיימת. נסו פעולה מוגדרת, כמו פתרון 3 שאלות בנושא ב. חזרו לשלב 2."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L22",
+      "description": "Q2: []",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. סמנו לפחות פעולה אחת."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L23",
+      "description": "Q2: [\"a\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.5
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.5,
+        "maxPoints": 1,
+        "message": "◐ כמעט. זיהיתם חלק מהפעולות המועילות. בחרו גם חזרה וגם שאלות; הימנעו מדחייה ומקריאה בלבד. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L24",
+      "description": "Q2: [\"b\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.5
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.5,
+        "maxPoints": 1,
+        "message": "◐ כמעט. זיהיתם חלק מהפעולות המועילות. בחרו גם חזרה וגם שאלות; הימנעו מדחייה ומקריאה בלבד. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L25",
+      "description": "Q2: [\"a\",\"b\"]",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. חזרה ופתרון שאלות מחזקים זיכרון ומגלים פערים."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L26",
+      "description": "Q2: [\"c\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L27",
+      "description": "Q2: [\"a\",\"c\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L28",
+      "description": "Q2: [\"b\",\"c\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L29",
+      "description": "Q2: [\"a\",\"b\",\"c\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.5
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.5,
+        "maxPoints": 1,
+        "message": "◐ כמעט. זיהיתם חלק מהפעולות המועילות. בחרו גם חזרה וגם שאלות; הימנעו מדחייה ומקריאה בלבד. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L30",
+      "description": "Q2: [\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L31",
+      "description": "Q2: [\"a\",\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L32",
+      "description": "Q2: [\"b\",\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L33",
+      "description": "Q2: [\"a\",\"b\",\"d\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.5
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.5,
+        "maxPoints": 1,
+        "message": "◐ כמעט. זיהיתם חלק מהפעולות המועילות. בחרו גם חזרה וגם שאלות; הימנעו מדחייה ומקריאה בלבד. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L34",
+      "description": "Q2: [\"c\",\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L35",
+      "description": "Q2: [\"a\",\"c\",\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L36",
+      "description": "Q2: [\"b\",\"c\",\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L37",
+      "description": "Q2: [\"a\",\"b\",\"c\",\"d\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. שלבו חזרה קצרה עם שאלות ובדיקת טעויות. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L38",
+      "description": "Q3: [\"review\",\"learn\",\"practice\"]",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. חוזרים על אתמול, לומדים חומר חדש ואז מתרגלים אותו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L39",
+      "description": "Q3: [\"review\",\"practice\",\"learn\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.3333333333333333
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.3333333333333333,
+        "maxPoints": 1,
+        "message": "◐ כמעט. חלק מהמיקומים נכונים. התחילו בחזרה על אתמול, אחריה למידה ולבסוף תרגול. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L40",
+      "description": "Q3: [\"learn\",\"review\",\"practice\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.3333333333333333
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.3333333333333333,
+        "maxPoints": 1,
+        "message": "◐ כמעט. חלק מהמיקומים נכונים. התחילו בחזרה על אתמול, אחריה למידה ולבסוף תרגול. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L41",
+      "description": "Q3: [\"practice\",\"learn\",\"review\"]",
+      "expected": {
+        "status": "partial",
+        "points": 0.3333333333333333
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.3333333333333333,
+        "maxPoints": 1,
+        "message": "◐ כמעט. חלק מהמיקומים נכונים. התחילו בחזרה על אתמול, אחריה למידה ולבסוף תרגול. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L42",
+      "description": "Q3: [\"learn\",\"practice\",\"review\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. הסדר המועיל: חזרה על אתמול, למידה חדשה ותרגול. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L43",
+      "description": "Q3: [\"practice\",\"review\",\"learn\"]",
+      "expected": {
+        "status": "wrong",
+        "points": 0
+      },
+      "actual": {
+        "status": "wrong",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "✗ לא מדויק. הסדר המועיל: חזרה על אתמול, למידה חדשה ותרגול. חזרו לשלב 3."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L44",
+      "description": "Q3: [\"review\",\"review\",\"practice\"]",
+      "expected": {
+        "status": "invalid",
+        "points": 0
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: בחרו כל משימה פעם אחת בלבד."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L45",
+      "description": "Q3: [\"review\",\"\",\"practice\"]",
+      "expected": {
+        "status": "missing",
+        "points": 0
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו משימה בכל אחד משלושת המקומות."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L46",
+      "description": "Q5: {\"action\":\"\",\"quantity\":\"5\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "missing",
+        "points": 0,
+        "field": "action"
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו פעולה, הזינו כמות וציינו שעת סיום.",
+        "field": "action"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L47",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "missing",
+        "points": 0,
+        "field": "quantity"
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו פעולה, הזינו כמות וציינו שעת סיום.",
+        "field": "quantity"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L48",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"\"}",
+      "expected": {
+        "status": "missing",
+        "points": 0,
+        "field": "deadline"
+      },
+      "actual": {
+        "status": "missing",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ לא נבחרה תשובה. בחרו פעולה, הזינו כמות וציינו שעת סיום.",
+        "field": "deadline"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L49",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"0\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "quantity"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו כמות שלמה וחיובית של שאלות או עמודים.",
+        "field": "quantity"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L50",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"-1\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "quantity"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו כמות שלמה וחיובית של שאלות או עמודים.",
+        "field": "quantity"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L51",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"1.5\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "quantity"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו כמות שלמה וחיובית של שאלות או עמודים.",
+        "field": "quantity"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L52",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"abc\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "quantity"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו כמות שלמה וחיובית של שאלות או עמודים.",
+        "field": "quantity"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L53",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"Infinity\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "quantity"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו כמות שלמה וחיובית של שאלות או עמודים.",
+        "field": "quantity"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L54",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"1\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L55",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"3\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L56",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L57",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"11\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L58",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"24:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "deadline"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו שעת סיום תקינה, למשל 19:00.",
+        "field": "deadline"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L59",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"19:60\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "deadline"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו שעת סיום תקינה, למשל 19:00.",
+        "field": "deadline"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L60",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"bad\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "deadline"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו שעת סיום תקינה, למשל 19:00.",
+        "field": "deadline"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L61",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"7:00\"}",
+      "expected": {
+        "status": "invalid",
+        "points": 0,
+        "field": "deadline"
+      },
+      "actual": {
+        "status": "invalid",
+        "points": 0,
+        "maxPoints": 1,
+        "message": "⚠ יש לתקן: הזינו שעת סיום תקינה, למשל 19:00.",
+        "field": "deadline"
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L62",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"00:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L63",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"07:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L64",
+      "description": "Q5: {\"action\":\"practice\",\"quantity\":\"5\",\"deadline\":\"23:59\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L65",
+      "description": "Q5: {\"action\":\"read\",\"quantity\":\"5\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "correct",
+        "points": 1
+      },
+      "actual": {
+        "status": "correct",
+        "points": 1,
+        "maxPoints": 1,
+        "message": "✓ נכון. היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "L66",
+      "description": "Q5: {\"action\":\"vague\",\"quantity\":\"5\",\"deadline\":\"19:00\"}",
+      "expected": {
+        "status": "partial",
+        "points": 0.6666666666666666
+      },
+      "actual": {
+        "status": "partial",
+        "points": 0.6666666666666666,
+        "maxPoints": 1,
+        "message": "◐ כמעט. הכמות ושעת הסיום מוגדרות, אך „ללמוד לבוחן” אינו מבהיר איזו פעולה תעשו. בחרו פתרון שאלות או קריאת עמודים. חזרו לשלב 1."
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S0",
+      "description": "Score 0/5",
+      "expected": {
+        "percent": 0,
+        "passed": false
+      },
+      "actual": {
+        "points": 0,
+        "maxPoints": 5,
+        "percent": 0,
+        "passed": false
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S2",
+      "description": "Score 2/5",
+      "expected": {
+        "percent": 40,
+        "passed": false
+      },
+      "actual": {
+        "points": 2,
+        "maxPoints": 5,
+        "percent": 40,
+        "passed": false
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S3",
+      "description": "Score 3/5",
+      "expected": {
+        "percent": 60,
+        "passed": true
+      },
+      "actual": {
+        "points": 3,
+        "maxPoints": 5,
+        "percent": 60,
+        "passed": true
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S5",
+      "description": "Score 5/5",
+      "expected": {
+        "percent": 100,
+        "passed": true
+      },
+      "actual": {
+        "points": 5,
+        "maxPoints": 5,
+        "percent": 100,
+        "passed": true
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S-empty",
+      "description": "Empty results",
+      "expected": {
+        "percent": 0,
+        "passed": false
+      },
+      "actual": {
+        "points": 0,
+        "maxPoints": 0,
+        "percent": 0,
+        "passed": false
+      },
+      "status": "passed"
+    },
+    {
+      "id": "JS-activity-bridge.js",
+      "description": "JavaScript syntax activity-bridge.js",
+      "expected": "valid syntax",
+      "actual": "valid syntax",
+      "status": "passed"
+    },
+    {
+      "id": "JS-main.js",
+      "description": "JavaScript syntax main.js",
+      "expected": "valid syntax",
+      "actual": "valid syntax",
+      "status": "passed"
+    },
+    {
+      "id": "JS-quiz-data.js",
+      "description": "JavaScript syntax quiz-data.js",
+      "expected": "valid syntax",
+      "actual": "valid syntax",
+      "status": "passed"
+    },
+    {
+      "id": "JS-quiz.js",
+      "description": "JavaScript syntax quiz.js",
+      "expected": "valid syntax",
+      "actual": "valid syntax",
+      "status": "passed"
+    },
+    {
+      "id": "JS-study-plan.js",
+      "description": "JavaScript syntax study-plan.js",
+      "expected": "valid syntax",
+      "actual": "valid syntax",
+      "status": "passed"
+    },
+    {
+      "id": "A-labels",
+      "description": "Generated labels and feedback regions",
+      "expected": "unique IDs, linked labels, 5 live regions",
+      "actual": {
+        "ids": 27,
+        "liveRegions": 5
+      },
+      "status": "passed"
+    },
+    {
+      "id": "M-origin",
+      "description": "Reject untrusted iframe origin",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-window",
+      "description": "Reject untrusted iframe window",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-height--1",
+      "description": "Reject invalid resize height -1",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-height-0",
+      "description": "Reject invalid resize height 0",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-height-50000",
+      "description": "Reject invalid resize height 50000",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-height-700",
+      "description": "Reject invalid resize height 700",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-height-null",
+      "description": "Reject invalid resize height null",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-height-NaN",
+      "description": "Reject invalid resize height NaN",
+      "expected": "height unchanged",
+      "actual": "ignored",
+      "status": "passed"
+    },
+    {
+      "id": "M-valid",
+      "description": "Accept trusted resize",
+      "expected": "700px",
+      "actual": "700px",
+      "status": "passed"
+    },
+    {
+      "id": "M-invalid-result",
+      "description": "Reject malformed quiz-result message",
+      "expected": "progress stays 20",
+      "actual": "Expected values to be strictly equal:\n\n100 !== 20\n",
+      "status": "failed"
+    }
+  ]
+}
