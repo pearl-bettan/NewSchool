@@ -4,16 +4,29 @@ const progress = document.querySelector('[role="progressbar"]');
 const progressLinks = [...document.querySelectorAll('.progress-step')];
 let selectedSection = null;
 let selectedSectionSeen = false;
+let currentProgressIndex = 0;
+function alignProgressLine() {
+  const track = progress.getBoundingClientRect();
+  const marker = progressLinks[currentProgressIndex].querySelector('.progress-step-number').getBoundingClientRect();
+  const vertical = track.height > track.width;
+  const length = vertical ? marker.top + marker.height / 2 - track.top : track.right - (marker.left + marker.width / 2);
+  const maxLength = vertical ? track.height : track.width;
+  progress.querySelector('.progress-bar').style.setProperty('--progress-length', `${Math.max(0, Math.min(maxLength, length))}px`);
+}
 function updateProgress(index) {
+  currentProgressIndex = index;
   const percent = (index + 1) * 20;
   progress.setAttribute('aria-valuenow', percent);
-  progress.querySelector('.progress-bar').style.setProperty('--progress-percent', `${percent}%`);
   document.querySelector('#progress-label').textContent = `שלב ${index + 1} מתוך 5`;
   progressLinks.forEach((link, position) => {
     if (position === index) link.setAttribute('aria-current', 'step');
     else link.removeAttribute('aria-current');
   });
+  alignProgressLine();
 }
+window.addEventListener('resize', alignProgressLine);
+window.addEventListener('load', alignProgressLine);
+alignProgressLine();
 function goToSection(id) {
   const section = document.getElementById(id);
   const index = sections.indexOf(section);
