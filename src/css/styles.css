@@ -55,7 +55,6 @@
 /* 2. Base */
 html { scroll-behavior: smooth; }
 body { margin: 0; }
-#step-quiz, #step-quiz *, .quiz-body, .quiz-body * { cursor: url('../assets/images/pencil-cursor.svg') 2 22, auto !important; }
 h1, h2, h3, legend { line-height: 1.3; font-weight: 750; }
 h1 {
   font-size: clamp(2.8rem, 6vw, 5rem);
@@ -151,10 +150,11 @@ header { background: var(--color-surface); }
 .progress {
   height: 5px;
   margin-block-end: .5rem;
-  --bs-progress-bg: var(--color-border);
-  --bs-progress-bar-bg: var(--color-primary);
+  background: repeating-linear-gradient(90deg, #b1c0ba 0 5px, #d7ded8 5px 7px);
+  border-radius: 40% 55% 45% 50%;
+  filter: url(#pencil-rough);
 }
-.progress-bar { width: var(--progress-percent, 20%); }
+.progress-bar { width: var(--progress-percent, 20%); background: repeating-linear-gradient(90deg, #2e5c63 0 5px, #74938f 5px 7px); }
 .progress-steps {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -184,9 +184,9 @@ header { background: var(--color-surface); }
   flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid #758b86;
+  border: 1px solid transparent;
   border-radius: 48% 52% 47% 53% / 53% 47% 53% 47%;
-  box-shadow: 1px 1px 0 #a9bdb7;
+  box-shadow: none;
   background: var(--color-surface);
   font-weight: 700;
   font-size: 1rem;
@@ -198,7 +198,7 @@ header { background: var(--color-surface); }
 .progress-step[aria-current="step"] { font-weight: 750; }
 .progress-step[aria-current="step"] .progress-step-number {
   background: repeating-linear-gradient(135deg, #f6edc7 0 3px, #d2c46e 3px 4px);
-  border-color: var(--color-text);
+  border-color: transparent;
   color: var(--color-text);
 }
 .progress-step:focus-visible { outline-color: var(--color-primary); outline-offset: 2px; }
@@ -210,7 +210,7 @@ header { background: var(--color-surface); }
   flex: none;
   width: 3rem;
   height: 3rem;
-  border: 1px solid var(--color-primary);
+  border: 1px solid transparent;
   border-radius: 50% 50% 15% 50%;
   color: var(--color-primary);
   font-weight: 700;
@@ -340,7 +340,27 @@ footer :focus-visible { outline-color: white; }
 .review-flow > div > span:first-child { font-size: 1.8rem; color: var(--color-primary); }
 .review-flow > div > span:last-child { font-size: 1.35rem; color: var(--color-muted); font-family: 'Gveret Levin', var(--font-base); }
 #step-plan { background: #edf4f0; margin-inline: -1.25rem; padding-inline: 1.25rem; border-radius: 1.75rem; border: 0; }
-.plan-day { border: 1px solid #91aaa6; background: white; border-radius: 1rem .8rem 1rem .7rem; box-shadow: 2px 2px 0 #d3e2dd; padding: 1rem; height: 100%; }
+#step-quiz {
+  position: relative;
+  margin-block: var(--space-section);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 0;
+  border-radius: 1.2rem 1rem 1.3rem .9rem;
+  background: repeating-linear-gradient(to bottom, #fffefa 0 2.7rem, #dcebea 2.7rem calc(2.7rem + 1px), #fffefa calc(2.7rem + 1px) 2.8rem);
+}
+#step-quiz::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid #83a5a1;
+  border-radius: inherit;
+  filter: url(#pencil-rough);
+  pointer-events: none;
+}
+html:not(.embedded) .quiz-body {
+  background: repeating-linear-gradient(to bottom, #fffefa 0 2.7rem, #dcebea 2.7rem calc(2.7rem + 1px), #fffefa calc(2.7rem + 1px) 2.8rem);
+}
+.plan-day { border: 1px solid transparent; background: white; border-radius: 1rem .8rem 1rem .7rem; box-shadow: none; padding: 1rem; height: 100%; }
 .day-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-block-end: 1rem; padding-block-end: .75rem; border-block-end: 2px solid var(--color-mustard); }
 .day-heading h2 { font-size: 1.4rem; }
 .day-heading span { font-size: .85rem; color: var(--color-muted); }
@@ -358,7 +378,7 @@ footer :focus-visible { outline-color: white; }
 .block-minutes { font-size: .8rem; color: var(--color-muted); }
 .accordion-body { font-size: .95rem; padding: 1rem; }
 .collapsing { transition: height .18s ease; }
-.question-card { padding: 1rem; background: white; border: 1px solid #a5ada4; border-radius: 1rem .8rem 1.1rem .7rem; box-shadow: 2px 2px 0 #e2e4dc; margin-block-end: 1.25rem; }
+.question-card { padding: 1rem; background: white; border: 1px solid transparent; border-radius: 1rem .8rem 1.1rem .7rem; box-shadow: none; margin-block-end: 1.25rem; }
 .question-card legend { font-size: 1.15rem; float: none; width: auto; margin-block-end: 1rem; }
 .form-check {
   position: relative;
@@ -469,8 +489,9 @@ footer :focus-visible { outline-color: white; }
     width: 4px;
     height: auto;
     margin: 0;
+    background: repeating-linear-gradient(0deg, #b1c0ba 0 5px, #d7ded8 5px 7px);
   }
-  .progress-bar { width: 100%; height: var(--progress-percent, 20%); }
+  .progress-bar { width: 100%; height: var(--progress-percent, 20%); background: repeating-linear-gradient(0deg, #2e5c63 0 5px, #74938f 5px 7px); }
   .progress-steps {
     position: relative;
     display: flex;
