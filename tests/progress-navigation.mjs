@@ -8,9 +8,9 @@ const ids=['step-goal','step-split','step-review','step-plan','step-quiz'];
 function setup(reducedMotion=false) {
   const handlers={};let observerCallback;
   const sections=ids.map(id=>({id,focus(options){this.focused=options;},scrollIntoView(options){this.scrolled=options;}}));
-  const links=ids.map(id=>({attrs:{href:'#'+id},handlers:{},getAttribute(name){return this.attrs[name];},setAttribute(name,value){this.attrs[name]=value;},removeAttribute(name){delete this.attrs[name];},addEventListener(type,callback){this.handlers[type]=callback;}}));
+  const links=ids.map((id,index)=>({attrs:{href:'#'+id},handlers:{},querySelector(){return {getBoundingClientRect(){return {top:index*100-20,height:40};}};},getAttribute(name){return this.attrs[name];},setAttribute(name,value){this.attrs[name]=value;},removeAttribute(name){delete this.attrs[name];},addEventListener(type,callback){this.handlers[type]=callback;}}));
   const bar={style:{setProperty(name,value){this[name]=value;}}};
-  const progress={attrs:{},setAttribute(name,value){this.attrs[name]=value;},querySelector(){return bar;}};
+  const progress={attrs:{},getBoundingClientRect(){return {top:0,height:400,width:4};},setAttribute(name,value){this.attrs[name]=value;},querySelector(){return bar;}};
   const label={textContent:''};
   const frame={contentWindow:{},style:{}};
   const document={
@@ -31,7 +31,7 @@ for(const reduced of [false,true]) {
     let prevented=false;h.links[index].handlers.click({preventDefault(){prevented=true;}});
     assert.ok(prevented);
     assert.equal(h.progress.attrs['aria-valuenow'],(index+1)*20);
-    assert.equal(h.bar.style['--progress-percent'],`${(index+1)*20}%`);
+    assert.equal(h.bar.style['--progress-length'],`${index*100}px`);
     assert.equal(h.label.textContent,`שלב ${index+1} מתוך 5`);
     assert.equal(h.links.filter(link=>link.attrs['aria-current']==='step').length,1);
     assert.equal(h.links[index].attrs['aria-current'],'step');
