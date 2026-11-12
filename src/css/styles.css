@@ -333,6 +333,8 @@ footer :focus-visible { outline-color: white; }
 .task-step { font-size: .85rem; font-weight: 750; }
 .task-text { color: var(--color-text); font: 400 clamp(1.15rem, 2.2vw, 1.5rem) / 1.4 'Gveret Levin', var(--font-base); }
 #step-review { border-block-end: 0; }
+.section-divider { margin: 0 0 var(--space-section); border: 0; border-block-start: 1px solid var(--color-border); opacity: 1; }
+.section-divider--after-plan { margin-block: var(--space-section) 0; }
 .review-flow { display: grid; gap: 1.5rem; margin-block-start: 2rem; }
 .review-flow > div { --review-color: #689c9f; position: relative; padding: 1.25rem .85rem; display: flex; flex-direction: column; gap: .35rem; background: repeating-linear-gradient(135deg, #fff 0 7px, #eef6f3 7px 8px); border-radius: 1rem .8rem 1rem .7rem; }
 .review-flow > div:nth-child(2) { --review-color: #a79835; }
