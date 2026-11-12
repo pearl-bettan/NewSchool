@@ -2,25 +2,6 @@ const frames = [...document.querySelectorAll('.activity-frame')];
 const sections = [...document.querySelectorAll('main > section')];
 const progress = document.querySelector('[role="progressbar"]');
 const progressLinks = [...document.querySelectorAll('.progress-step')];
-const scrollBrush = document.querySelector('.scroll-brush');
-if (scrollBrush) {
-  let brushUpdatePending = false;
-  function updateBrush() {
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollableHeight > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollableHeight)) : 0;
-    scrollBrush.style.setProperty('--brush-offset', 100 * (1 - progress));
-    brushUpdatePending = false;
-  }
-  function scheduleBrushUpdate() {
-    if (!brushUpdatePending) {
-      brushUpdatePending = true;
-      requestAnimationFrame(updateBrush);
-    }
-  }
-  window.addEventListener('scroll', scheduleBrushUpdate, { passive: true });
-  window.addEventListener('resize', scheduleBrushUpdate);
-  updateBrush();
-}
 let selectedSection = null;
 let selectedSectionSeen = false;
 function updateProgress(index) {
@@ -123,7 +104,11 @@ if (globeMotionButton) {
   function setGlobeMotion(running) {
     if (running) globeMotion.play();
     else globeMotion.pause();
-    globeMotionButton.textContent = running ? 'עצירת סיבוב הגלובוס' : 'הפעלת סיבוב הגלובוס';
+    const label = running ? 'עצירת סיבוב הגלובוס' : 'הפעלת סיבוב הגלובוס';
+    globeMotionButton.setAttribute('aria-label', label);
+    globeMotionButton.title = label;
+    globeMotionButton.querySelector('.globe-stop-icon').toggleAttribute('hidden', !running);
+    globeMotionButton.querySelector('.globe-play-icon').toggleAttribute('hidden', running);
   }
 
   setGlobeMotion(!motionPreference.matches);

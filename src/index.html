@@ -142,8 +142,9 @@
                 <figcaption class="hero-caption">כל שפה פותחת עולם. כל תוכנית מתחילה בצעד.</figcaption>
                 <p class="hero-caption">לחצו על הברכות כדי לשמוע אותן.</p>
                 <p id="speech-status" class="hero-caption" role="status"></p>
-                <button id="globe-motion-toggle" class="btn btn-outline-primary btn-sm mt-2" type="button" aria-controls="hero-globe" hidden>
-                  עצירת סיבוב הגלובוס
+                <button id="globe-motion-toggle" class="btn btn-outline-primary mt-2" type="button" aria-controls="hero-globe" aria-label="עצירת סיבוב הגלובוס" title="עצירת סיבוב הגלובוס" hidden>
+                  <svg class="globe-stop-icon" aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16"><rect x="3" y="3" width="10" height="10" rx="1.5" fill="currentColor"/></svg>
+                  <svg class="globe-play-icon" aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16" hidden><path d="M4 2.5v11L13 8z" fill="currentColor"/></svg>
                 </button>
               </figure>
             </div>
@@ -151,11 +152,6 @@
         </div>
       </div>
     </header>
-    <svg class="scroll-brush" viewBox="0 0 70 600" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <path class="scroll-brush-stroke" pathLength="100" d="M35 5 C5 50 65 75 39 111 C15 144 7 102 33 104 C61 106 61 165 35 205 C9 245 4 285 31 289 C58 293 58 251 34 255 C8 259 7 328 35 365 C63 402 64 449 38 451 C12 453 11 413 35 416 C62 420 63 500 34 535 C17 555 22 580 35 595"/>
-      <path class="scroll-brush-stroke scroll-brush-streak" pathLength="100" transform="translate(-2 0)" d="M35 5 C5 50 65 75 39 111 C15 144 7 102 33 104 C61 106 61 165 35 205 C9 245 4 285 31 289 C58 293 58 251 34 255 C8 259 7 328 35 365 C63 402 64 449 38 451 C12 453 11 413 35 416 C62 420 63 500 34 535 C17 555 22 580 35 595"/>
-      <path class="scroll-brush-stroke scroll-brush-streak scroll-brush-streak--fine" pathLength="100" transform="translate(2 0)" d="M35 5 C5 50 65 75 39 111 C15 144 7 102 33 104 C61 106 61 165 35 205 C9 245 4 285 31 289 C58 293 58 251 34 255 C8 259 7 328 35 365 C63 402 64 449 38 451 C12 453 11 413 35 416 C62 420 63 500 34 535 C17 555 22 580 35 595"/>
-    </svg>
     <div class="learning-layout">
       <aside class="progress-shell">
         <nav class="progress-inner" aria-label="שלבי יחידת הלמידה">
@@ -244,39 +240,36 @@
               <h2 id="split-title">נושא גדול, משימות קטנות</h2>
             </div>
           </div>
-          <div class="row align-items-center g-4">
-            <div class="col-md-6">
-              <p>משימה קטנה עוזרת לדעת מה לעשות עכשיו ומתי סיימנו.
-                כך נועה מחלקת את נושא ב:</p>
-              <ol class="task-list">
-                <li>
-                  לקרוא סיכום
-                </li>
-                <li>
-                  לסמן מושגים מרכזיים
-                </li>
-                <li>
-                  לפתור 3 שאלות
-                </li>
-              </ol>
-            </div>
-            <div class="col-md-6">
-              <div
-                class="split-diagram"
-                role="img"
-                aria-label="נושא ב מתחלק לקריאת סיכום, סימון מושגים ופתרון שלוש שאלות"
-              >
-                <div class="topic-node">
-                  נושא ב
-                </div>
-                <span aria-hidden="true">↓</span>
-                <div class="task-nodes">
-                  <span>לקרוא סיכום</span>
-                  <span>לסמן מושגים</span>
-                  <span>לפתור 3 שאלות</span>
-                </div>
-              </div>
-            </div>
+          <p>משימה קטנה עוזרת לדעת <strong>מה לעשות עכשיו ומתי סיימנו.</strong> כך נועה מחלקת את נושא ב:</p>
+          <div class="split-diagram">
+            <svg class="pencil-filter" aria-hidden="true" focusable="false" width="0" height="0">
+              <defs>
+                <filter id="pencil-rough" x="-10%" y="-10%" width="120%" height="120%">
+                  <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="3" seed="8" result="grain"/>
+                  <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+                </filter>
+              </defs>
+            </svg>
+            <div class="topic-node"><span>נושא גדול</span><strong>נושא ב</strong></div>
+            <svg class="task-connectors" viewBox="0 0 900 75" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path class="connector-first" d="M450 2 C450 32 755 22 755 72"/>
+              <path class="connector-second" d="M450 2 C448 25 452 50 450 72"/>
+              <path class="connector-third" d="M450 2 C450 32 145 22 145 72"/>
+            </svg>
+            <ol class="task-nodes">
+              <li class="task-node task-node--read">
+                <span class="task-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 26c-3-3-7-4-12-3V7c5-1 9 0 12 3m0 16c3-3 7-4 12-3V7c-5-1-9 0-12 3m0 0v16"/></svg></span>
+                <span class="task-step">צעד 1</span><span class="task-text">לקרוא סיכום</span>
+              </li>
+              <li class="task-node task-node--mark">
+                <span class="task-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m6 24 3-7L22 4l6 6-13 13-9 3Zm3-7 6 6M20 6l6 6M5 28h15"/></svg></span>
+                <span class="task-step">צעד 2</span><span class="task-text">לסמן מושגים מרכזיים</span>
+              </li>
+              <li class="task-node task-node--practice">
+                <span class="task-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M9 5H6v23h20V5h-3M12 4h8v4h-8zM10 14l2 2 3-3m3 2h4m-12 6 2 2 3-3m3 2h4"/></svg></span>
+                <span class="task-step">צעד 3</span><span class="task-text">לפתור 3 שאלות</span>
+              </li>
+            </ol>
           </div>
         </section>
 
