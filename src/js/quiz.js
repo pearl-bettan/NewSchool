@@ -88,37 +88,6 @@ function navigateRadioOptions(event) {
 
 function initializeQuiz() {
   renderQuiz();
-  const pencil = document.querySelector('.quiz-pencil-pointer');
-  if (pencil) {
-    let lastPointer = null;
-    let animationFrame = null;
-    function positionPencil() {
-      animationFrame = null;
-      if (!lastPointer) return;
-      const frame = window.frameElement;
-      const frameRect = frame?.getBoundingClientRect();
-      const x = frameRect ? lastPointer.screenX - frameRect.left : lastPointer.clientX;
-      const y = frameRect ? lastPointer.screenY - frameRect.top : lastPointer.clientY;
-      pencil.style.transform = `translate3d(${x - 2}px, ${y - 22}px, 0)`;
-      if (!document.documentElement.classList.contains('pencil-active')) document.documentElement.classList.add('pencil-active');
-    }
-    function schedulePencilUpdate() {
-      if (animationFrame === null) animationFrame = requestAnimationFrame(positionPencil);
-    }
-    document.addEventListener('pointermove', event => {
-      if (event.pointerType !== 'mouse') return;
-      const frameRect = window.frameElement?.getBoundingClientRect();
-      lastPointer = { clientX: event.clientX, clientY: event.clientY, screenX: event.clientX + (frameRect?.left ?? 0), screenY: event.clientY + (frameRect?.top ?? 0) };
-      schedulePencilUpdate();
-    });
-    document.addEventListener('pointerleave', () => {
-      lastPointer = null;
-      if (animationFrame !== null) cancelAnimationFrame(animationFrame);
-      animationFrame = null;
-      document.documentElement.classList.remove('pencil-active');
-    });
-    if (window.frameElement) window.parent.addEventListener('scroll', schedulePencilUpdate, { passive: true });
-  }
   const form = document.querySelector('#quiz-form');
   form.addEventListener('keydown', navigateRadioOptions);
   form.addEventListener('submit', event => {
