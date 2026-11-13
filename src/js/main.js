@@ -58,11 +58,24 @@ const observer = new IntersectionObserver(entries => {
   if (current) updateProgress(sections.indexOf(current));
 }, { rootMargin: '-10% 0px -25% 0px' });
 sections.forEach(section => observer.observe(section));
+// Chrome shows a custom CSS cursor inside an iframe only while the pointer is within the
+// top "window height" of that iframe. With a mouse, keep the quiz frame shorter than the
+// window (it scrolls inside) so the pencil cursor works on every question.
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+const frameContentHeights = new Map();
+function setFrameHeight(frame, contentHeight) {
+  frameContentHeights.set(frame, contentHeight);
+  const limit = window.innerHeight;
+  const capped = frame.id === 'quiz-frame' && finePointer.matches && contentHeight > limit;
+  frame.style.height = `${capped ? limit : contentHeight}px`;
+  frame.classList.toggle('is-scrollable', capped);
+}
+window.addEventListener('resize', () => frameContentHeights.forEach((height, frame) => setFrameHeight(frame, height)));
 window.addEventListener('message', event => {
   if (window.location.origin === 'null' || event.origin !== window.location.origin || event.data?.source !== 'school-new-activity') return;
   const frame = frames.find(item => item.contentWindow === event.source);
   if (!frame) return;
-  if (event.data.type === 'resize' && Number.isFinite(event.data.height) && event.data.height > 0 && event.data.height < 50000) frame.style.height = `${event.data.height}px`;
+  if (event.data.type === 'resize' && Number.isFinite(event.data.height) && event.data.height > 0 && event.data.height < 50000) setFrameHeight(frame, event.data.height);
   if (event.data.type === 'scroll-to-frame') frame.scrollIntoView({ block: 'start', behavior: 'instant' });
   if (event.data.type === 'quiz-result') updateProgress(4);
   if (event.data.type === 'revisit' && ['step-goal', 'step-split', 'step-review'].includes(event.data.id)) {
