@@ -453,6 +453,28 @@ html:not(.embedded) .quiz-body {
 .navbar-toggler { min-width: 44px; min-height: 44px; border-color: #758b86; }
 .form-hint { font-size: .9rem; color: var(--color-muted); }
 
+/* Credits page */
+.credits-back { font-weight: 650; text-decoration: none; }
+.credits-back:hover { text-decoration: underline; }
+.credits-main { max-width: 1000px; }
+.credits-intro { padding-block: clamp(3rem, 7vw, 5rem) 1rem; }
+.credits-intro h1 { margin-block: .75rem 1rem; }
+.credits-intro p { font-size: 1.2rem; }
+.credits-grid { display: grid; gap: 1.2rem; }
+.credits-card { position: relative; min-width: 0; padding: 1.5rem; background: repeating-linear-gradient(132deg, #fff 0 7px, #edf5f2 7px 8px); border-radius: 1rem .8rem 1.1rem .7rem; }
+.credits-card::after { content: ''; position: absolute; inset: 0; border: 2px solid #75918b; border-radius: inherit; filter: url(#pencil-rough); pointer-events: none; }
+.credits-card:nth-child(4n + 2)::after { border-color: #a79242; }
+.credits-card:nth-child(4n + 3)::after { border-color: #688baa; }
+.credits-card:nth-child(4n + 4)::after { border-color: #9279a0; }
+.credits-card h3 { text-align: start; margin-block: .65rem; }
+.credits-card p { margin-block: .75rem; }
+.credits-tag { display: inline-block; color: var(--color-primary); font-size: .85rem; font-weight: 750; }
+.credits-license { color: var(--color-muted); font-size: .9rem; }
+.credits-links { display: flex; gap: .5rem 1.25rem; flex-wrap: wrap; }
+.credits-links a { overflow-wrap: anywhere; }
+.credits-finish { padding-block: 2.5rem 4rem; text-align: center; }
+.credits-finish p { margin-inline: auto; font: 400 1.4rem 'Gveret Levin', var(--font-base); }
+
 /* 6. Media queries */
 @media (max-width: 599px) {
   .task-connectors { display: none; }
@@ -461,6 +483,7 @@ html:not(.embedded) .quiz-body {
   .task-node::before { content: ''; position: absolute; inset-block-end: 100%; height: 1.5rem; border-inline-start: 2px dashed currentColor; opacity: .65; }
 }
 @media (min-width: 768px) {
+  .credits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-actions .btn, .quiz-actions .btn { width: auto; }
   .question-card-body { padding: 1.5rem; }
   .section-heading { align-items: center; }
