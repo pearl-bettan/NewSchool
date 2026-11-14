@@ -201,7 +201,7 @@ Rendering rules:
 - Container: `<div class="row g-3" id="study-plan">`. Each day is `<div class="col-12 col-lg-4"><article class="plan-day">`.
 - In RTL, the first column (day 1) appears on the right automatically. Do not reverse the order manually.
 - On mobile the days stack vertically (day 1 first). Use `order` utilities only if the logical order breaks.
-- Each block is a Bootstrap **accordion item** (one accordion per day). The button text contains: icon, type label, topic, task, minutes. The collapse panel holds the `why` explanation under a visible label "למה כך?".
+- Each block is a Bootstrap **accordion item** (one accordion per day). The button text contains: icon, type label, topic, task, minutes. The collapse panel holds the `why` explanation under a visible label "למה?".
 - Each accordion has a unique id per day; use `data-bs-parent` so one block is open at a time per day.
 - Optional small extra interaction: a button "הצג/י את סוגי הבלוקים" that toggles a legend (learn / review / practice). Not required.
 - Buttons are real `<button>` elements. Keyboard: Tab, Enter, Space work natively through Bootstrap. Keep the visible focus style.

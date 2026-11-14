@@ -20,20 +20,18 @@ export const STUDY_PLAN = [
     { id: 'd3-b3', type: 'practice', topic: 'נושאים א + ב + ג', task: 'שאלות מעורבות ובדיקת טעויות', minutes: 15, why: 'שאלות מכל הנושאים מדמות את הבוחן. בדיקת הטעויות היא גם חזרה מסכמת.' }
   ] }
 ];
-function renderBlock(block, day) {
+function renderBlock(block) {
   const type = BLOCK_TYPES[block.type];
-  return `<div class="accordion-item ${type.cssClass}"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${block.id}" aria-expanded="false" aria-controls="${block.id}"><span class="block-copy"><span class="block-type"><span aria-hidden="true">${type.icon}</span> ${type.label}</span><strong>${block.topic}</strong><span class="block-task">${block.task}</span><span class="block-minutes">${block.minutes} דקות · פתחו להסבר</span></span></button></h3><div id="${block.id}" class="accordion-collapse collapse" data-bs-parent="#day-${day}"><div class="accordion-body"><strong>למה כך?</strong> ${block.why}</div></div></div>`;
+  return `<div class="accordion-item ${type.cssClass}"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${block.id}" aria-expanded="false" aria-controls="${block.id}"><span class="block-copy"><span class="block-type"><span aria-hidden="true">${type.icon}</span> ${type.label}</span><strong>${block.topic}</strong><span class="block-task">${block.task}</span><span class="block-minutes">${block.minutes} דקות · פתחו להסבר</span></span></button></h3><div id="${block.id}" class="accordion-collapse collapse"><div class="accordion-body"><strong>למה?</strong> ${block.why}</div></div></div>`;
 }
 function renderDay(day) {
   const minutes = day.blocks.reduce((sum, block) => sum + block.minutes, 0);
-  return `<div class="col-12 col-lg-4"><article class="plan-day" aria-labelledby="day-title-${day.day}"><div class="day-heading"><h2 id="day-title-${day.day}">${day.label}</h2><span>${minutes} דקות בסך הכול</span></div><div class="accordion" id="day-${day.day}">${day.blocks.map(block => renderBlock(block, day.day)).join('')}</div></article></div>`;
+  return `<div class="col-12 col-lg-4"><article class="plan-day" aria-labelledby="day-title-${day.day}"><div class="day-heading"><h2 id="day-title-${day.day}">${day.label}</h2><span>${minutes} דקות בסך הכול</span></div><div class="accordion" id="day-${day.day}">${day.blocks.map(renderBlock).join('')}</div></article></div>`;
 }
 const studyPlan = document.querySelector('#study-plan');
 studyPlan.innerHTML = STUDY_PLAN.map(renderDay).join('');
 
 let pendingButton = null;
-let keyboardButton = null;
-const panelsToClose = new Set();
 
 function openFocusedBlock() {
   const button = pendingButton;
@@ -44,41 +42,21 @@ function openFocusedBlock() {
   if (panel.classList.contains('show')) pendingButton = null;
 }
 
-function closePreviousBlocks() {
-  for (const panel of panelsToClose) {
-    if (panel.classList.contains('collapsing')) continue;
-    bootstrap.Collapse.getOrCreateInstance(panel, { toggle: false }).hide();
-    if (!panel.classList.contains('show') && !panel.classList.contains('collapsing')) {
-      panelsToClose.delete(panel);
-    }
-  }
-}
-
 studyPlan.addEventListener('focusin', event => {
   const button = event.target.closest('.accordion-button');
   if (!button || !button.matches(':focus-visible')) return;
-  keyboardButton = button;
   pendingButton = button;
-  panelsToClose.delete(document.getElementById(button.getAttribute('aria-controls')));
   openFocusedBlock();
 });
 
 studyPlan.addEventListener('focusout', event => {
   const button = event.target.closest('.accordion-button');
-  if (!button || button !== keyboardButton) return;
-  keyboardButton = null;
+  if (!button) return;
   if (pendingButton === button) pendingButton = null;
-  panelsToClose.add(document.getElementById(button.getAttribute('aria-controls')));
-  closePreviousBlocks();
 });
 
-// Finish closing the old block before retrying focus during a Bootstrap transition.
-function synchronizeFocusedBlocks() {
-  closePreviousBlocks();
-  openFocusedBlock();
-}
-studyPlan.addEventListener('shown.bs.collapse', synchronizeFocusedBlocks);
-studyPlan.addEventListener('hidden.bs.collapse', synchronizeFocusedBlocks);
+studyPlan.addEventListener('shown.bs.collapse', openFocusedBlock);
+studyPlan.addEventListener('hidden.bs.collapse', openFocusedBlock);
 studyPlan.addEventListener('keydown', event => {
   if (event.key === 'Enter' || event.key === ' ') pendingButton = null;
 });
