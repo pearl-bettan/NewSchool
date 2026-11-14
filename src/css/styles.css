@@ -444,7 +444,8 @@ html:not(.embedded) .quiz-body {
 .summary-card::after { content: ''; position: absolute; inset: 1px; border: 2px solid var(--color-primary); border-radius: inherit; opacity: .55; filter: url(#pencil-rough); pointer-events: none; }
 .summary-card h2 { margin-block-end: 1rem; }
 .score-value { font-size: 1.7rem; font-weight: 800; color: var(--color-primary); }
-.hero-note, .accordion-body, .form-hint { font-family: 'Gveret Levin', var(--font-base); font-size: 1.35rem; font-weight: 400; }
+.hero-note, .form-hint { font-family: 'Gveret Levin', var(--font-base); font-size: 1.35rem; font-weight: 400; }
+.accordion-body { font-family: 'Gveret Levin', var(--font-base); font-size: 1.15rem; font-weight: 400; }
 #q5-hint { font-family: var(--font-base); font-size: 1rem; }
 .required-note { font-weight: 400; font-size: .9rem; color: var(--color-muted); }
 
