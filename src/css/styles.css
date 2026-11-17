@@ -270,6 +270,12 @@ footer :focus-visible { outline-color: white; }
   --bs-btn-active-color: white;
   --bs-btn-active-border-color: var(--color-primary-dark);
 }
+#submit-learning:disabled {
+  background-color: #dedede;
+  border-color: #b8b8b8;
+  color: #555;
+  opacity: 1;
+}
 .btn-outline-primary {
   --bs-btn-color: var(--color-primary);
   --bs-btn-border-color: var(--color-primary);

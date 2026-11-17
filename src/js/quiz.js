@@ -1,7 +1,7 @@
 import { QUESTIONS } from './quiz-data.js';
 import { reportHeight, sendMessage } from './activity-bridge.js';
 export const PASS_PERCENT = 60;
-const PREFIX = { missing: '⚠ לא נבחרה תשובה.', invalid: '⚠ יש לתקן:', correct: '✓ נכון.', partial: '◐ כמעט.', wrong: '✗ לא מדויק.' };
+const PREFIX = { missing: '⚠ לא נבחרה תשובה.', invalid: '⚠ יש לתקן:', correct: '✓ נכון.', partial: '◐ תשובה חלקית.', wrong: '✗ לא מדויק.' };
 export function evaluateQuestion(question, answer) {
   const result = (status, points = 0, message = question.feedback[status], field) => ({ status, points, maxPoints: question.maxPoints, message: `${PREFIX[status]} ${message}`, field });
   if (answer === undefined || answer === null || answer === '' || (Array.isArray(answer) && (!answer.length || answer.some(value => !value)))) return result('missing');
@@ -90,16 +90,41 @@ function initializeQuiz() {
   renderQuiz();
   const form = document.querySelector('#quiz-form');
   form.addEventListener('keydown', navigateRadioOptions);
+  const invalidateCheckedAnswers = () => sendMessage('quiz-invalidated');
+  const updateAvailability = () => {
+    invalidateCheckedAnswers();
+    const answers = QUESTIONS.map(question => readAnswer(document.getElementById(question.id)));
+    const complete = answers.every(answer => {
+      if (Array.isArray(answer)) return answer.length > 0 && answer.every(Boolean);
+      if (answer && typeof answer === 'object') return Object.values(answer).every(Boolean);
+      return Boolean(answer);
+    });
+    sendMessage('quiz-availability', { complete });
+    if (complete) {
+      const results = QUESTIONS.map((question, index) => evaluateQuestion(question, answers[index]));
+      sendMessage('quiz-snapshot', {
+        score: calculateScore(results),
+        interactions: QUESTIONS.map((question, index) => ({
+          id: question.id, type: question.type, answer: answers[index],
+          status: results[index].status, points: results[index].points
+        }))
+      });
+    }
+  };
+  form.addEventListener('input', updateAvailability);
+  form.addEventListener('change', updateAvailability);
   form.addEventListener('submit', event => {
     event.preventDefault();
-    const results = QUESTIONS.map(question => {
+    const answers = QUESTIONS.map(question => readAnswer(document.getElementById(question.id)));
+    const results = QUESTIONS.map((question, index) => {
       const element = document.getElementById(question.id);
-      const result = evaluateQuestion(question, readAnswer(element));
+      const result = evaluateQuestion(question, answers[index]);
       showFeedback(element, result);
       return result;
     });
     const firstProblem = results.findIndex(result => ['missing', 'invalid'].includes(result.status));
     if (firstProblem !== -1) {
+      invalidateCheckedAnswers();
       document.querySelector('#quiz-summary').hidden = true;
       reportHeight();
       const question = document.getElementById(QUESTIONS[firstProblem].id);
@@ -112,12 +137,16 @@ function initializeQuiz() {
     const score = calculateScore(results);
     showSummary(score, results);
     reportToLms(score);
-    sendMessage('quiz-result', score);
+    sendMessage('quiz-result', { ...score, interactions: QUESTIONS.map((question, index) => ({
+      id: question.id, type: question.type, answer: answers[index], status: results[index].status, points: results[index].points
+    })) });
     reportHeight();
     sendMessage('scroll-to-frame');
     requestAnimationFrame(() => document.querySelector('#summary-heading').focus());
   });
   form.addEventListener('reset', () => {
+    invalidateCheckedAnswers();
+    sendMessage('quiz-availability', { complete: false });
     document.querySelectorAll('.quiz-feedback').forEach(element => { element.textContent = ''; element.className = 'quiz-feedback'; });
     form.querySelectorAll('[aria-invalid]').forEach(element => element.removeAttribute('aria-invalid'));
     document.querySelector('#quiz-summary').hidden = true;

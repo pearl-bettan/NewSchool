@@ -1,3 +1,5 @@
+import { finishLmsSession, isLmsConnected, submitToLms } from './scorm-session.js';
+
 const frames = [...document.querySelectorAll('.activity-frame')];
 const sections = [...document.querySelectorAll('main > section')];
 const progress = document.querySelector('[role="progressbar"]');
@@ -5,6 +7,15 @@ const progressLinks = [...document.querySelectorAll('.progress-step')];
 let selectedSection = null;
 let selectedSectionSeen = false;
 let currentProgressIndex = 0;
+// Keep the latest filled answers in memory until submission is implemented.
+let checkedInteractions = null;
+let latestQuizSnapshot = null;
+let submissionFinished = false;
+const submitLearning = document.querySelector('#submit-learning');
+function setCheckedInteractions(interactions) {
+  checkedInteractions = interactions;
+  if (!submissionFinished) document.querySelector('#submission-status').textContent = '';
+}
 function alignProgressLine() {
   const track = progress.getBoundingClientRect();
   const marker = progressLinks[currentProgressIndex].querySelector('.progress-step-number').getBoundingClientRect();
@@ -77,11 +88,83 @@ window.addEventListener('message', event => {
   if (!frame) return;
   if (event.data.type === 'resize' && Number.isFinite(event.data.height) && event.data.height > 0 && event.data.height < 50000) setFrameHeight(frame, event.data.height);
   if (event.data.type === 'scroll-to-frame') frame.scrollIntoView({ block: 'start', behavior: 'instant' });
-  if (event.data.type === 'quiz-result') updateProgress(4);
+  if (frame.id === 'quiz-frame' && event.data.type === 'quiz-invalidated') {
+    setCheckedInteractions(null);
+    latestQuizSnapshot = null;
+  }
+  if (frame.id === 'quiz-frame' && event.data.type === 'quiz-availability' && typeof event.data.complete === 'boolean') {
+    submitLearning.disabled = submissionFinished || !event.data.complete;
+  }
+  if (frame.id === 'quiz-frame' && event.data.type === 'quiz-snapshot') {
+    const { score, interactions } = event.data;
+    if (score && Number.isFinite(score.percent) && score.percent >= 0 && score.percent <= 100 &&
+      Array.isArray(interactions) && interactions.length === 5 && interactions.every((item, index) =>
+        item && item.id === `q${index + 1}` && ['correct', 'partial', 'wrong', 'invalid'].includes(item.status))) {
+      latestQuizSnapshot = { score, interactions };
+    }
+  }
+  if (frame.id === 'quiz-frame' && event.data.type === 'quiz-result') {
+    const interactions = event.data.interactions;
+    if (Array.isArray(interactions) && interactions.length === 5 && interactions.every((item, index) =>
+      item && item.id === `q${index + 1}` && ['correct', 'partial', 'wrong'].includes(item.status))) {
+      setCheckedInteractions(interactions);
+    } else setCheckedInteractions(null);
+    updateProgress(4);
+  }
   if (event.data.type === 'revisit' && ['step-goal', 'step-split', 'step-review'].includes(event.data.id)) {
     goToSection(event.data.id);
   }
 });
+function showMoodleSubmissionNotice() {
+  try {
+    const popup = window.top;
+    const moodle = popup.opener;
+    if (!moodle || moodle.closed || moodle.location.origin !== window.location.origin ||
+      !/\/(?:course|mod\/scorm)\//.test(moodle.location.pathname)) return false;
+    const container = moodle.document.querySelector('main, #page-content');
+    if (!container) return false;
+    const notice = moodle.document.createElement('div');
+    notice.className = 'alert alert-success';
+    notice.setAttribute('role', 'status');
+    notice.setAttribute('tabindex', '-1');
+    notice.textContent = 'הלומדה הוגשה בהצלחה והתוצאה נשמרה.';
+    container.prepend(notice);
+    moodle.focus();
+    notice.focus();
+    popup.close();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+submitLearning.addEventListener('click', () => {
+  const status = document.querySelector('#submission-status');
+  if (!isLmsConnected()) {
+    status.textContent = 'לא ניתן להגיש: אין חיבור למערכת הלמידה והתשובות אינן נשמרות בה.';
+  } else if (!latestQuizSnapshot) {
+    status.textContent = 'לא התקבלו נתוני השאלון. יש לוודא שכל השאלות מולאו.';
+  } else {
+    const result = submitToLms(latestQuizSnapshot);
+    if (result.ok) {
+      submissionFinished = true;
+      submitLearning.disabled = true;
+      if (!finishLmsSession()) {
+        status.textContent = 'התוצאה נשמרה, אך לא התקבל אישור לסיום החיבור. אפשר לחזור למודל ולבדוק את הניסיון.';
+        return;
+      }
+      status.textContent = 'הלומדה הוגשה והתוצאה נשמרה. אפשר לסגור את החלון ולחזור למודל.';
+      showMoodleSubmissionNotice();
+    } else if (result.reason === 'review') {
+      status.textContent = 'לא ניתן להגיש במצב עיון או תצוגה מקדימה. יש לפתוח ניסיון רגיל במודל.';
+    } else {
+      status.textContent = 'לא התקבל אישור שמירה מלא ממערכת הלמידה. ייתכן שחלק מהנתונים נשמרו; יש לבדוק את דוח הניסיון במודל לפני ניסיון נוסף.';
+      submissionFinished = true;
+      submitLearning.disabled = true;
+    }
+  }
+});
+
 document.querySelectorAll('#main-nav a').forEach(link => link.addEventListener('click', () => {
   bootstrap.Collapse.getInstance(document.querySelector('#main-nav'))?.hide();
 }));
