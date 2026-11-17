@@ -26,6 +26,8 @@ Inspect the actual repository before making changes. This layout is the target c
 4. The learning-page skill's website file tree is relative to `src/`, not the repository root. Its `index.html`, `css/`, `js/`, `assets/`, and `activities/` paths therefore map under `src/`. Keep project instructions in the root `README.md` and website credits in `src/CREDITS.md`.
 5. Do not duplicate entire skill contents in this file. If skills disagree with authoritative requirements or a user-approved decision, explain the conflict and follow the authoritative requirement or approved decision. Ask only when a material conflict cannot be resolved from available context.
 6. Teacher examples do not require adopting their graduation-project topic, visual identity, or multi-page wireframe.
+7. Consult the course materials in `doc/03 רספונסיביות.pptx`, `doc/Prog3_Web_Javascript.pptx`, and `doc/Prog3_SCORM_2026 מתוקן.pptx` when relevant. Treat classroom exercises and example implementations as teaching material, not as this project's content or automatically applicable requirements.
+8. For an explicitly requested LMS/SCORM stage, also consult `doc/SCORM_SPEC_מסמך_נקי.docx`. It is an unfilled template: sections 3–7 require project-specific decisions, and its statements that a pipwerks wrapper and manifest already exist must be verified against the actual project. Do not assume the template's example question count, scoring, submission flow, or dependencies match this site. Stage SCORM 1.2 work and verify each milestone as appropriate; do not implement it merely because the teaching materials are present.
 
 ## Product scope
 

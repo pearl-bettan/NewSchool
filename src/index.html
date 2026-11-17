@@ -68,7 +68,9 @@
           <div class="row align-items-center g-4">
             <div class="col-lg-7">
               <span class="eyebrow">מרחב הלמידה · ניו סקול</span>
+              <p class="learner-greeting" id="learner-greeting">היי!</p>
               <h1>מתכננים למידה <span class="hero-emphasis">לבוחן</span></h1>
+              <p class="scorm-notice" id="scorm-notice" role="status" hidden>הפעילות פתוחה מחוץ למערכת הלמידה או שהחיבור אליה לא הצליח. התשובות לא יישמרו במערכת.</p>
               <p class="hero-copy">
                 גם בלימודי שפות, מתחילים בצעד קטן. מגדירים יעד, מחלקים למשימות
                 ומשאירים זמן לחזרה, כדי להגיע לבוחן עם תוכנית ברורה.
@@ -381,6 +383,8 @@
       </div>
     </footer>
     <script src="assets/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/SCORM_API_wrapper.js"></script>
+    <script type="module" src="js/scorm-session.js"></script>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

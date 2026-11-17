@@ -2,6 +2,7 @@
 
 | פריט | גרסה | רישיון | מקור | שימוש |
 |---|---|---|---|---|
+| pipwerks SCORM API Wrapper | 1.1.20180906 | MIT-style | https://github.com/pipwerks/scorm-api-wrapper · http://pipwerks.mit-license.org/ | חיבור ל־SCORM 1.2 |
 | Bootstrap RTL + bundle | 5.3.3 | MIT | https://getbootstrap.com | פריסה, תפריט ואקורדיון; קבצים מקומיים |
 | Bootstrap Icons — Bullseye | 1.13.1 | MIT | https://icons.getbootstrap.com/icons/bullseye/ · https://github.com/twbs/icons/tree/v1.13.1 | סמל מטרה ב־SVG מקומי בתוך קוד העמוד, בחלק למידה ממוקדת |
 | Heebo, גופן משתנה עברית ולטינית | חבילת Fontsource Variable 5.2.6 | SIL OFL 1.1 | https://fonts.google.com/specimen/Heebo · https://www.npmjs.com/package/@fontsource-variable/heebo | טיפוגרפיה מקומית, WOFF2 |

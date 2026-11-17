@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="newschool-learning-unit" version="1.0"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>
+  <organizations default="learning-unit">
+    <organization identifier="learning-unit">
+      <title>מתכננים למידה לבוחן</title>
+      <item identifier="learning-item" identifierref="learning-resource"><title>מתכננים למידה לבוחן</title></item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="learning-resource" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="CREDITS.md" />
+      <file href="activities/quiz.html" />
+      <file href="activities/study-plan.html" />
+      <file href="assets/images/hero.svg" />
+      <file href="assets/images/logo.svg" />
+      <file href="assets/images/pencil-cursor.svg" />
+      <file href="assets/vendor/Bootstrap-Icons-LICENSE.txt" />
+      <file href="assets/vendor/Bootstrap-LICENSE.txt" />
+      <file href="assets/vendor/Gveret-Levin-OFL.txt" />
+      <file href="assets/vendor/Heebo-OFL.txt" />
+      <file href="assets/vendor/SCORM_API_wrapper.js" />
+      <file href="assets/vendor/bootstrap.bundle.min.js" />
+      <file href="assets/vendor/bootstrap.rtl.min.css" />
+      <file href="assets/vendor/gveret-levin.ttf" />
+      <file href="assets/vendor/heebo-hebrew.woff2" />
+      <file href="assets/vendor/heebo-latin.woff2" />
+      <file href="credits.html" />
+      <file href="css/styles.css" />
+      <file href="index.html" />
+      <file href="js/activity-bridge.js" />
+      <file href="js/main.js" />
+      <file href="js/quiz-data.js" />
+      <file href="js/quiz.js" />
+      <file href="js/scorm-session.js" />
+      <file href="js/study-plan.js" />
+    </resource>
+  </resources>
+</manifest>

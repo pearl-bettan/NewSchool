@@ -551,3 +551,6 @@ html:not(.embedded) .quiz-body {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+.learner-greeting { margin: .8rem 0 .25rem; color: var(--color-primary); font-size: 1.15rem; font-weight: 700; }
+.scorm-notice { max-width: 48ch; margin-block: 1rem; padding: .75rem 1rem; border: 1px solid #b8a518; border-radius: .5rem; background: #faf6df; }
