@@ -115,6 +115,8 @@ function initializeQuiz() {
   form.addEventListener('change', updateAvailability);
   form.addEventListener('submit', event => {
     event.preventDefault();
+    // Checking must refresh the same submission data as editing an answer.
+    updateAvailability();
     const answers = QUESTIONS.map(question => readAnswer(document.getElementById(question.id)));
     const results = QUESTIONS.map((question, index) => {
       const element = document.getElementById(question.id);
@@ -124,7 +126,6 @@ function initializeQuiz() {
     });
     const firstProblem = results.findIndex(result => ['missing', 'invalid'].includes(result.status));
     if (firstProblem !== -1) {
-      invalidateCheckedAnswers();
       document.querySelector('#quiz-summary').hidden = true;
       reportHeight();
       const question = document.getElementById(QUESTIONS[firstProblem].id);
