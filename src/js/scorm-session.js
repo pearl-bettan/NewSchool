@@ -1,3 +1,5 @@
+import { OPEN_ANSWER_LIMIT, SUSPEND_DATA_LIMIT, openAnswerPayload } from './quiz-data.js';
+
 // The main page owns the LMS session; embedded activities do not open their own.
 const greeting = document.getElementById('learner-greeting');
 const notice = document.getElementById('scorm-notice');
@@ -28,8 +30,12 @@ function startSession() {
     }
     const name = wrapper.SCORM.get('cmi.core.student_name');
     if (name && typeof name === 'string') {
-      const givenName = (name.includes(',') ? name.split(',').slice(1).join(',') : name).trim().split(/\s+/)[0];
-      if (givenName) greeting.textContent = `היי, ${givenName}`;
+      const namePart = (name.includes(',') ? name.split(',').slice(1).join(',') : name).trim();
+      const givenName = namePart.split(/\s+/)[0];
+      const isName = /^\p{L}[\p{L}\p{M}'’׳״.־\-]*$/u.test(givenName) &&
+        !/^(?:false|null|undefined|nan|unknown)$/i.test(givenName) &&
+        !/^(?:not available|לא ידוע|ללא שם)$/iu.test(namePart);
+      if (isName) greeting.textContent = `היי, ${givenName}`;
     }
   } catch (error) {
     // The unit stays usable even when the LMS is unavailable.
@@ -61,8 +67,18 @@ export function submitToLms(snapshot) {
   try {
     const mode = scorm.get('cmi.core.lesson_mode');
     if (mode !== 'normal') return { ok: false, reason: 'review' };
+    if (typeof snapshot.openAnswer !== 'string' || !snapshot.openAnswer.trim() ||
+        snapshot.openAnswer.length > OPEN_ANSWER_LIMIT) return { ok: false, reason: 'suspend-length' };
+    const payload = openAnswerPayload(snapshot.openAnswer);
+    if (payload.length > SUSPEND_DATA_LIMIT) return { ok: false, reason: 'suspend-length' };
+    const existing = scorm.get('cmi.suspend_data');
+    if (scorm.debug.getCode() !== 0 || typeof existing !== 'string') return { ok: false, reason: 'suspend-read' };
+    if (existing && existing !== payload) return { ok: false, reason: 'suspend-conflict' };
     const count = Number(scorm.get('cmi.interactions._count'));
     if (!Number.isInteger(count) || count < 0) return { ok: false, reason: 'error' };
+    if (!existing && !scorm.set('cmi.suspend_data', payload)) return { ok: false, reason: 'error' };
+    const savedAnswer = scorm.get('cmi.suspend_data');
+    if (scorm.debug.getCode() !== 0 || savedAnswer !== payload) return { ok: false, reason: 'error' };
     for (const [offset, item] of snapshot.interactions.entries()) {
       const prefix = `cmi.interactions.${count + offset}.`;
       const type = item.type === 'order' ? 'sequencing' : item.type === 'goal' ? 'performance' : 'choice';

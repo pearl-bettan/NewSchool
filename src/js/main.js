@@ -1,4 +1,5 @@
 import { finishLmsSession, isLmsConnected, submitToLms } from './scorm-session.js';
+import { OPEN_ANSWER_LIMIT, SUSPEND_DATA_LIMIT, openAnswerPayload } from './quiz-data.js';
 
 const frames = [...document.querySelectorAll('.activity-frame')];
 const sections = [...document.querySelectorAll('main > section')];
@@ -96,11 +97,13 @@ window.addEventListener('message', event => {
     submitLearning.disabled = submissionFinished || !event.data.complete;
   }
   if (frame.id === 'quiz-frame' && event.data.type === 'quiz-snapshot') {
-    const { score, interactions } = event.data;
-    if (score && Number.isFinite(score.percent) && score.percent >= 0 && score.percent <= 100 &&
+    const { score, interactions, openAnswer } = event.data;
+    if (typeof openAnswer === 'string' && openAnswer.trim() && openAnswer.length <= OPEN_ANSWER_LIMIT &&
+      openAnswerPayload(openAnswer).length <= SUSPEND_DATA_LIMIT &&
+      score && Number.isFinite(score.percent) && score.percent >= 0 && score.percent <= 100 &&
       Array.isArray(interactions) && interactions.length === 5 && interactions.every((item, index) =>
         item && item.id === `q${index + 1}` && ['correct', 'partial', 'wrong', 'invalid'].includes(item.status))) {
-      latestQuizSnapshot = { score, interactions };
+      latestQuizSnapshot = { score, interactions, openAnswer };
     }
   }
   if (frame.id === 'quiz-frame' && event.data.type === 'quiz-result') {
@@ -164,6 +167,12 @@ submitLearning.addEventListener('click', () => {
         returnLink.hidden = false;
       }
       status.focus();
+    } else if (result.reason === 'suspend-conflict') {
+      status.textContent = 'קיימים במודל נתוני שמירה אחרים. כדי לא לדרוס אותם ההגשה נעצרה; יש לבדוק את הניסיון במודל.';
+    } else if (result.reason === 'suspend-read') {
+      status.textContent = 'לא ניתן לבדוק את נתוני השמירה במודל. ההגשה נעצרה בלי לשנות אותם; נסו שוב או פנו לתמיכה.';
+    } else if (result.reason === 'suspend-length') {
+      status.textContent = 'התשובה ארוכה מכדי להישמר. יש לקצר אותה ולנסות שוב.';
     } else if (result.reason === 'review') {
       status.textContent = 'לא ניתן להגיש במצב עיון או תצוגה מקדימה. יש לפתוח ניסיון רגיל במודל.';
     } else {

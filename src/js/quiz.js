@@ -1,7 +1,26 @@
-import { QUESTIONS } from './quiz-data.js';
+import { QUESTIONS, OPEN_ANSWER_LIMIT, SUSPEND_DATA_LIMIT, openAnswerPayload } from './quiz-data.js';
 import { reportHeight, sendMessage } from './activity-bridge.js';
 export const PASS_PERCENT = 60;
 const PREFIX = { missing: '⚠ לא נבחרה תשובה.', invalid: '⚠ יש לתקן:', correct: '✓ נכון.', partial: '◐ תשובה חלקית.', wrong: '✗ לא מדויק.' };
+
+// Check only the requested length and the four explicitly defined concepts.
+export function evaluateOpenAnswer(answer) {
+  const text = answer.normalize('NFC').replace(/[\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7]/g, '');
+  const words = text.trim().split(/\s+/u).filter(word => /[\p{L}\p{N}]/u.test(word)).length;
+  const concepts = [
+    /(?<![\p{L}\p{M}])ו?ה?יעד(?:ים)?[\s־-]+ה?לימודי(?:ים)?(?![\p{L}\p{M}])/u,
+    /(?<![\p{L}\p{M}])ו?ה?משימ(?:ה|ות)[\s־-]+ה?קטנ(?:ה|ות)(?![\p{L}\p{M}])/u,
+    /(?<![\p{L}\p{M}])ו?[בלה]?חזרה(?![\p{L}\p{M}])/u,
+    /(?<![\p{L}\p{M}])ו?[בלה]?תרגול(?![\p{L}\p{M}])/u
+  ].filter(pattern => pattern.test(text)).length;
+  const missing = [];
+  if (answer.length > OPEN_ANSWER_LIMIT) missing.push(`לקצר את התשובה ל־2,000 יחידות UTF-16 לכל היותר (כעת ${answer.length})`);
+  if (openAnswerPayload(answer).length > SUSPEND_DATA_LIMIT) missing.push('לקצר את התשובה כדי שתתאים למקום הזמין לשמירה');
+  if (words < 15) missing.push(`לפחות 15 מילים (כעת ${words})`);
+  if (concepts < 2) missing.push(`לפחות שני מושגים שונים מהרשימה (כעת ${concepts})`);
+  return { valid: missing.length === 0, words, concepts, message: missing.length ? `יש לתקן: ${missing.join('; ')}.` : 'התשובה כוללת לפחות 15 מילים ושני מושגים שונים.' };
+}
+
 export function evaluateQuestion(question, answer) {
   const result = (status, points = 0, message = question.feedback[status], field) => ({ status, points, maxPoints: question.maxPoints, message: `${PREFIX[status]} ${message}`, field });
   if (answer === undefined || answer === null || answer === '' || (Array.isArray(answer) && (!answer.length || answer.some(value => !value)))) return result('missing');
@@ -41,7 +60,7 @@ function renderQuestion(question, index) {
   let fields = '';
   if (['single', 'multi'].includes(question.type)) fields = question.options.map(option => `<div class="form-check"><input class="form-check-input" type="${question.type === 'single' ? 'radio' : 'checkbox'}" id="${question.id}-${option.id}" name="${question.id}" value="${option.id}" ${question.type === 'single' ? 'required' : ''} aria-describedby="${question.id}-feedback"><label class="form-check-label" for="${question.id}-${option.id}">${option.text}</label></div>`).join('');
   if (question.type === 'order') fields = `<div class="order-fields">${[1, 2, 3].map(position => `<div class="order-field"><label for="${question.id}-${position}">מקום ${position}</label><select class="form-select" id="${question.id}-${position}" required aria-describedby="${question.id}-feedback"><option value="">בחרו משימה</option>${options}</select></div>`).join('')}</div>`;
-  if (question.type === 'goal') fields = `<p class="form-hint" id="${question.id}-hint">בחרו פעולה מוגדרת. הכמות מתייחסת למספר השאלות או העמודים; בחרו היקף שמתאים למפגש שלכם.</p><div class="order-fields"><div class="order-field"><label for="${question.id}-action">מה עושים?</label><select id="${question.id}-action" data-goal-field="action" class="form-select" required aria-describedby="${question.id}-hint ${question.id}-feedback"><option value="">בחרו פעולה</option>${options}</select></div><div class="order-field"><label for="${question.id}-quantity">כמה שאלות או עמודים?</label><input id="${question.id}-quantity" data-goal-field="quantity" class="form-control" type="number" min="1" step="1" required aria-describedby="${question.id}-hint ${question.id}-feedback"></div><div class="order-field"><label for="${question.id}-deadline">עד איזו שעה?</label><input id="${question.id}-deadline" data-goal-field="deadline" class="form-control" type="time" required aria-describedby="${question.id}-feedback"></div></div>`;
+  if (question.type === 'goal') fields = `<p class="form-hint" id="${question.id}-hint">בחרו פעולה מוגדרת. הכמות מתייחסת למספר השאלות או העמודים; בחרו היקף שמתאים למפגש הלמידה.</p><div class="order-fields"><div class="order-field"><label for="${question.id}-action">מה עושים?</label><select id="${question.id}-action" data-goal-field="action" class="form-select" required aria-describedby="${question.id}-hint ${question.id}-feedback"><option value="">בחרו פעולה</option>${options}</select></div><div class="order-field"><label for="${question.id}-quantity">כמה שאלות או עמודים?</label><input id="${question.id}-quantity" data-goal-field="quantity" class="form-control" type="number" min="1" step="1" required aria-describedby="${question.id}-hint ${question.id}-feedback"></div><div class="order-field"><label for="${question.id}-deadline">עד איזו שעה?</label><input id="${question.id}-deadline" data-goal-field="deadline" class="form-control" type="time" required aria-describedby="${question.id}-feedback"></div></div>`;
   return `<fieldset id="${question.id}" data-type="${question.type}" class="question-card"><legend>${index + 1}. ${question.prompt} <span class="required-note">(חובה)</span></legend><div class="question-card-body">${fields}<div class="quiz-feedback" id="${question.id}-feedback" aria-live="polite"></div></div></fieldset>`;
 }
 function renderQuiz() { document.querySelector('#quiz-questions').innerHTML = QUESTIONS.map(renderQuestion).join(''); }
@@ -66,11 +85,11 @@ function showFeedback(element, result) {
 function showSummary(score, results) {
   const summary = document.querySelector('#quiz-summary');
   summary.hidden = false;
-  const band = score.percent >= 80 ? 'יש לכם בסיס טוב לתוכנית ברורה. קחו את היעד שהרכבתם למפגש הבא.' : score.percent >= 40 ? 'אתם בדרך. עיינו במשוב וחדדו את הצעדים שעדיין לא ברורים.' : 'כדאי לחזור לדוגמאות, ואז לנסות שוב בקצב שלכם.';
+  const band = score.percent >= 80 ? 'זהו בסיס טוב לתוכנית ברורה. אפשר לקחת את היעד שנבנה למפגש הבא.' : score.percent >= 40 ? 'זו התחלה טובה. עיינו במשוב וחדדו את הצעדים שעדיין לא ברורים.' : 'כדאי לחזור לדוגמאות, ואז לנסות שוב בקצב נוח.';
   const steps = [...new Set(QUESTIONS.filter((question, index) => results[index].status !== 'correct').map(question => question.step))];
   const labels = { 'step-goal': 'שלב 1: יעד ברור', 'step-split': 'שלב 2: משימות קטנות', 'step-review': 'שלב 3: חזרה ותרגול' };
   const standalone = window.parent === window;
-  document.querySelector('#summary-content').innerHTML = `<p class="score-value">${Number(score.points.toFixed(2))} מתוך ${score.maxPoints} · ${score.percent}%</p><p>${score.passed ? `הגעתם לרף ההצלחה (${PASS_PERCENT}%).` : `רף ההצלחה הוא ${PASS_PERCENT}%; אפשר לתקן ולבדוק שוב.`} ${band}</p>${steps.length ? `<p>כדאי לחזור אל:</p><ul>${steps.map(id => `<li><a href="${standalone ? '../index.html' : ''}#${id}" data-revisit="${id}">${labels[id]}</a></li>`).join('')}</ul>` : ''}`;
+  document.querySelector('#summary-content').innerHTML = `<p class="score-value">${Number(score.points.toFixed(2))} מתוך ${score.maxPoints} · ${score.percent}%</p><p>${score.passed ? `הושג רף ההצלחה (${PASS_PERCENT}%).` : `רף ההצלחה הוא ${PASS_PERCENT}%; אפשר לתקן ולבדוק שוב.`} ${band}</p>${steps.length ? `<p>כדאי לחזור אל:</p><ul>${steps.map(id => `<li><a href="${standalone ? '../index.html' : ''}#${id}" data-revisit="${id}">${labels[id]}</a></li>`).join('')}</ul>` : ''}`;
 }
 function navigateRadioOptions(event) {
   if (event.key !== 'Tab' || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -89,12 +108,22 @@ function navigateRadioOptions(event) {
 function initializeQuiz() {
   renderQuiz();
   const form = document.querySelector('#quiz-form');
+  const openAnswer = document.querySelector('#q6-answer');
+  const openFeedback = document.querySelector('#q6-feedback');
+  function showOpenFeedback(result) {
+    const messageChanged = openFeedback.textContent !== result.message;
+    openFeedback.className = `quiz-feedback feedback-${result.valid ? 'correct' : 'invalid'}`;
+    openFeedback.textContent = result.message;
+    if (result.valid) openAnswer.removeAttribute('aria-invalid');
+    else openAnswer.setAttribute('aria-invalid', 'true');
+    if (messageChanged) reportHeight();
+  }
   form.addEventListener('keydown', navigateRadioOptions);
   const invalidateCheckedAnswers = () => sendMessage('quiz-invalidated');
   const updateAvailability = () => {
     invalidateCheckedAnswers();
     const answers = QUESTIONS.map(question => readAnswer(document.getElementById(question.id)));
-    const complete = answers.every(answer => {
+    const complete = evaluateOpenAnswer(openAnswer.value).valid && answers.every(answer => {
       if (Array.isArray(answer)) return answer.length > 0 && answer.every(Boolean);
       if (answer && typeof answer === 'object') return Object.values(answer).every(Boolean);
       return Boolean(answer);
@@ -104,6 +133,7 @@ function initializeQuiz() {
       const results = QUESTIONS.map((question, index) => evaluateQuestion(question, answers[index]));
       sendMessage('quiz-snapshot', {
         score: calculateScore(results),
+        openAnswer: openAnswer.value,
         interactions: QUESTIONS.map((question, index) => ({
           id: question.id, type: question.type, answer: answers[index],
           status: results[index].status, points: results[index].points
@@ -111,8 +141,14 @@ function initializeQuiz() {
       });
     }
   };
-  form.addEventListener('input', updateAvailability);
-  form.addEventListener('change', updateAvailability);
+  form.addEventListener('input', event => {
+    if (event.target === openAnswer) showOpenFeedback(evaluateOpenAnswer(openAnswer.value));
+    updateAvailability();
+  });
+  form.addEventListener('change', event => {
+    if (event.target === openAnswer) showOpenFeedback(evaluateOpenAnswer(openAnswer.value));
+    updateAvailability();
+  });
   form.addEventListener('submit', event => {
     event.preventDefault();
     // Checking must refresh the same submission data as editing an answer.
@@ -124,6 +160,8 @@ function initializeQuiz() {
       showFeedback(element, result);
       return result;
     });
+    const openResult = evaluateOpenAnswer(openAnswer.value);
+    showOpenFeedback(openResult);
     const firstProblem = results.findIndex(result => ['missing', 'invalid'].includes(result.status));
     if (firstProblem !== -1) {
       document.querySelector('#quiz-summary').hidden = true;
@@ -133,6 +171,11 @@ function initializeQuiz() {
       const invalidField = results[firstProblem].field;
       const firstInvalid = invalidField ? question.querySelector(`[data-goal-field="${invalidField}"]`) : null;
       (firstInvalid ?? firstEmptySelect ?? question.querySelector('input,select,textarea')).focus();
+      return;
+    }
+    if (!openResult.valid) {
+      document.querySelector('#quiz-summary').hidden = true;
+      openAnswer.focus();
       return;
     }
     const score = calculateScore(results);

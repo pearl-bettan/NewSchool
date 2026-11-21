@@ -29,6 +29,16 @@
       <noscript>יש להפעיל JavaScript כדי להשתמש בפעילות.</noscript>
       <form id="quiz-form" novalidate>
         <div id="quiz-questions"></div>
+        <fieldset id="q6" class="question-card">
+          <legend>6. כיצד אפשר לחלק שלושה ימי הכנה לבוחן בשלושה נושאים, וכיצד אפשר לבדוק שהחומר הובן? <span class="required-note">(חובה, ללא ניקוד)</span></legend>
+          <div class="question-card-body">
+            <p id="q6-hint" class="form-hint">כתבו לפחות 15 מילים ושלבו לפחות שני מושגים שונים: יעד לימודי, משימות קטנות, חזרה, תרגול.</p>
+            <label for="q6-answer" class="visually-hidden">תוכנית ההכנה בשלושה ימים</label>
+            <textarea id="q6-answer" class="form-control" rows="6" required aria-describedby="q6-hint q6-storage q6-feedback"></textarea>
+            <p id="q6-storage" class="form-hint">אפשר לכתוב עד 2,000 תווים.</p>
+            <div id="q6-feedback" class="quiz-feedback" aria-live="polite"></div>
+          </div>
+        </fieldset>
         <div class="quiz-actions">
           <button type="submit" class="btn btn-primary">בדיקת תשובות</button>
           <button type="reset" class="btn btn-outline-primary">נסו שוב</button>
