@@ -3,3 +3,8 @@
 
 .DS_Store
 ~$*
+
+/prototype/
+/reference-react/
+/src/css/journey.css
+/src/css/hero-example.css
