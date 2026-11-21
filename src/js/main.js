@@ -115,27 +115,28 @@ window.addEventListener('message', event => {
     goToSection(event.data.id);
   }
 });
-function showMoodleSubmissionNotice() {
-  try {
-    const popup = window.top;
-    const moodle = popup.opener;
-    if (!moodle || moodle.closed || moodle.location.origin !== window.location.origin ||
-      !/\/(?:course|mod\/scorm)\//.test(moodle.location.pathname)) return false;
-    const container = moodle.document.querySelector('main, #page-content');
-    if (!container) return false;
-    const notice = moodle.document.createElement('div');
-    notice.className = 'alert alert-success';
-    notice.setAttribute('role', 'status');
-    notice.setAttribute('tabindex', '-1');
-    notice.textContent = 'הלומדה הוגשה בהצלחה והתוצאה נשמרה.';
-    container.prepend(notice);
-    moodle.focus();
-    notice.focus();
-    popup.close();
-    return true;
-  } catch (error) {
-    return false;
+function getMoodleActivityUrl() {
+  let frame = window;
+  for (let depth = 0; depth < 10; depth++) {
+    try {
+      const current = new URL(frame.location.href);
+      if (current.origin === window.location.origin && /\/mod\/scorm\/player\.php$/.test(current.pathname)) {
+        const activityId = current.searchParams.get('a');
+        const moduleId = current.searchParams.get('cm');
+        const target = new URL('view.php', current);
+        if (activityId && /^[0-9]+$/.test(activityId)) target.searchParams.set('a', activityId);
+        else if (moduleId && /^[0-9]+$/.test(moduleId)) target.searchParams.set('id', moduleId);
+        else return null;
+        target.searchParams.set('preventskip', '1');
+        return target.href;
+      }
+      if (frame === frame.parent) break;
+      frame = frame.parent;
+    } catch (error) {
+      return null;
+    }
   }
+  return null;
 }
 
 submitLearning.addEventListener('click', () => {
@@ -153,8 +154,16 @@ submitLearning.addEventListener('click', () => {
         status.textContent = 'התוצאה נשמרה, אך לא התקבל אישור לסיום החיבור. אפשר לחזור למודל ולבדוק את הניסיון.';
         return;
       }
-      status.textContent = 'הלומדה הוגשה והתוצאה נשמרה. אפשר לסגור את החלון ולחזור למודל.';
-      showMoodleSubmissionNotice();
+      const returnUrl = getMoodleActivityUrl();
+      const returnLink = document.querySelector('#return-to-moodle');
+      status.classList.add('alert', 'alert-success');
+      status.textContent = returnUrl ? 'הלומדה הוגשה בהצלחה והתוצאה נשמרה.' :
+        'הלומדה הוגשה והתוצאה נשמרה. אפשר לסגור את החלון ולחזור למודל.';
+      if (returnUrl) {
+        returnLink.href = returnUrl;
+        returnLink.hidden = false;
+      }
+      status.focus();
     } else if (result.reason === 'review') {
       status.textContent = 'לא ניתן להגיש במצב עיון או תצוגה מקדימה. יש לפתוח ניסיון רגיל במודל.';
     } else {
