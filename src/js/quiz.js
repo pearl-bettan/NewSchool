@@ -1,4 +1,4 @@
-import { QUESTIONS, OPEN_ANSWER_LIMIT, SUSPEND_DATA_LIMIT, openAnswerPayload } from './quiz-data.js';
+import { QUESTIONS, OPEN_ANSWER_LIMIT, SUSPEND_DATA_LIMIT, OPEN_ANSWER_CONCEPTS, CONCEPT_NOUN_PREFIXES, CONCEPT_VERB_PREFIXES, openAnswerPayload } from './quiz-data.js';
 import { reportHeight, sendMessage } from './activity-bridge.js';
 export const PASS_PERCENT = 60;
 const PREFIX = { missing: '⚠ לא נבחרה תשובה.', invalid: '⚠ יש לתקן:', correct: '✓ נכון.', partial: '◐ תשובה חלקית.', wrong: '✗ לא מדויק.' };
@@ -7,12 +7,16 @@ const PREFIX = { missing: '⚠ לא נבחרה תשובה.', invalid: '⚠ יש 
 export function evaluateOpenAnswer(answer) {
   const text = answer.normalize('NFC').replace(/[\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7]/g, '');
   const words = text.trim().split(/\s+/u).filter(word => /[\p{L}\p{N}]/u.test(word)).length;
-  const concepts = [
-    /(?<![\p{L}\p{M}])ו?ה?יעד(?:ים)?[\s־-]+ה?לימודי(?:ים)?(?![\p{L}\p{M}])/u,
-    /(?<![\p{L}\p{M}])ו?ה?משימ(?:ה|ות)[\s־-]+ה?קטנ(?:ה|ות)(?![\p{L}\p{M}])/u,
-    /(?<![\p{L}\p{M}])ו?[בלה]?חזרה(?![\p{L}\p{M}])/u,
-    /(?<![\p{L}\p{M}])ו?[בלה]?תרגול(?![\p{L}\p{M}])/u
-  ].filter(pattern => pattern.test(text)).length;
+  const concepts = OPEN_ANSWER_CONCEPTS.filter(concept => {
+    const nouns = concept.nouns.flatMap(([noun, adjective]) => CONCEPT_NOUN_PREFIXES.flatMap(prefix => {
+      if (!adjective) return [`${prefix}${noun}`];
+      const definite = ['ה', 'בה', 'לה', 'מה', 'כה', 'וה', 'ובה', 'ולה', 'ומה', 'וכה'].includes(prefix);
+      const impliedArticle = ['ב', 'ל', 'מ', 'כ', 'וב', 'ול', 'ומ', 'וכ'].includes(prefix);
+      return [`${prefix}${noun}[\\s־-]+${definite ? 'ה' : impliedArticle ? 'ה?' : ''}${adjective}`];
+    }));
+    const verbs = (concept.verbs || []).flatMap(verb => CONCEPT_VERB_PREFIXES.map(prefix => `${prefix}${verb}`));
+    return new RegExp(`(?<![\\p{L}\\p{M}\\p{N}])(?:${[...nouns, ...verbs].join('|')})(?![\\p{L}\\p{M}\\p{N}])`, 'u').test(text);
+  }).length;
   const missing = [];
   if (answer.length > OPEN_ANSWER_LIMIT) missing.push(`לקצר את התשובה ל־2,000 יחידות UTF-16 לכל היותר (כעת ${answer.length})`);
   if (openAnswerPayload(answer).length > SUSPEND_DATA_LIMIT) missing.push('לקצר את התשובה כדי שתתאים למקום הזמין לשמירה');

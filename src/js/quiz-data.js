@@ -36,6 +36,17 @@ export const QUESTIONS = [
 ];
 export const OPEN_ANSWER_LIMIT = 2000;
 export const SUSPEND_DATA_LIMIT = 4096;
+
+// Forms are grouped by concept so several matches count only once.
+export const OPEN_ANSWER_CONCEPTS = [
+  { nouns: [['יעד', 'לימודי'], ['יעדים', 'לימודיים']] },
+  { nouns: [['משימה', 'קטנה'], ['משימות', 'קטנות']] },
+  { nouns: [['חזרה'], ['חזרות']], verbs: ['לחזור', 'חוזר', 'חוזרת', 'חוזרים', 'חוזרות', 'חזרתי', 'חזרנו', 'אחזור', 'נחזור'] },
+  { nouns: [['תרגול'], ['תרגולים']], verbs: ['לתרגל', 'מתרגל', 'מתרגלת', 'מתרגלים', 'מתרגלות', 'תרגלתי', 'תרגלנו', 'אתרגל', 'נתרגל'] }
+];
+export const CONCEPT_NOUN_PREFIXES = ['', 'ה', 'ב', 'בה', 'ל', 'לה', 'מ', 'מה', 'כ', 'כה', 'ו', 'וה', 'וב', 'ובה', 'ול', 'ולה', 'ומ', 'ומה', 'וכ', 'וכה'];
+export const CONCEPT_VERB_PREFIXES = ['', 'ו'];
+
 export function openAnswerPayload(answer) {
   return JSON.stringify({ type: 'newschool-open-answer-v1', answer });
 }
