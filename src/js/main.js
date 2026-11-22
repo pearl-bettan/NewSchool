@@ -170,7 +170,7 @@ submitLearning.addEventListener('click', () => {
     } else if (result.reason === 'suspend-conflict') {
       status.textContent = 'קיימים במודל נתוני שמירה אחרים. כדי לא לדרוס אותם ההגשה נעצרה; יש לבדוק את הניסיון במודל.';
     } else if (result.reason === 'suspend-read') {
-      status.textContent = 'לא ניתן לבדוק את נתוני השמירה במודל. ההגשה נעצרה בלי לשנות אותם; נסו שוב או פנו לתמיכה.';
+      status.textContent = 'לא ניתן לבדוק את נתוני השמירה במודל. ההגשה נעצרה בלי לשנות אותם; אפשר לנסות שוב או לפנות לתמיכה.';
     } else if (result.reason === 'suspend-length') {
       status.textContent = 'התשובה ארוכה מכדי להישמר. יש לקצר אותה ולנסות שוב.';
     } else if (result.reason === 'review') {

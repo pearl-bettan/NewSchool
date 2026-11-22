@@ -440,6 +440,34 @@ html:not(.embedded) .quiz-body {
 .form-select:focus, .form-control:focus, .form-check-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 .2rem #2e5c6329; }
 .order-fields { display: grid; gap: .75rem; }
 .order-field label { font-size: .95rem; display: block; margin-block-end: .3rem; }
+.order-diary { padding: clamp(1rem, 3vw, 1.5rem); border: 1px solid #a4bfbc; border-radius: 1rem; background: #f8f8f1; }
+.order-diary-title { margin: 0 0 1rem; color: var(--color-primary); font-size: 1.2rem; }
+.order-instructions { padding: .85rem 1rem; border-inline-start: 4px solid var(--color-primary); border-radius: .4rem; background: #e7f4f2; font-family: var(--font-base); font-size: 1.1rem; line-height: 1.7; }
+.order-instructions p { margin: 0; }
+.order-hint-desktop { display: none; }
+.order-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-block-start: 1rem; }
+.order-bank-panel, .order-plan-panel { min-width: 0; padding: .85rem; border: 1px solid #c4d8d4; border-radius: .8rem; background: #fffefa; }
+.order-bank-panel h4, .order-plan-panel h4 { margin: 0 0 .75rem; color: var(--color-primary); font-size: 1rem; }
+.order-cards { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .6rem; min-height: 4rem; margin-block: .5rem; }
+.order-card, .order-slot { min-height: 48px; padding: .7rem; border: 2px solid #758b86; border-radius: .65rem; background: #fff; color: var(--color-text); }
+.order-card { min-height: 4rem; max-width: 100%; text-align: center; cursor: grab; touch-action: none; background: #fffef8; box-shadow: 2px 3px 0 #d4dfdb; }
+.order-card::before { content: '⠿'; display: block; color: #6b9696; line-height: 1; }
+.order-card[aria-pressed="true"], .order-slot[aria-pressed="true"] { border-color: var(--color-primary); background: #e7f4f2; }
+.order-card:focus-visible, .order-slot:focus-visible, .order-return:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+.order-fields.order-slots { grid-template-columns: minmax(0, 1fr); gap: 0; overflow: visible; border-block: 1px solid #c4d8d4; }
+.order-slot { display: grid; grid-template-columns: 5rem minmax(0, 1fr); align-items: center; min-width: 0; min-height: 4.5rem; gap: .5rem; text-align: center; border: 0; border-block-end: 1px solid #c4d8d4; border-radius: 0; background: #fffefa; touch-action: none; }
+.order-slot:last-child { border-block-end: 0; }
+.order-slot strong { color: var(--color-primary); }
+.order-slot > span { display: grid; place-items: center; min-width: 0; min-height: 3.5rem; padding: .4rem; border: 1px dashed #9ab5af; border-radius: .5rem; overflow-wrap: anywhere; }
+.order-plan-panel { background: repeating-linear-gradient(to bottom, #fffefa 0, #fffefa 37px, #e3efeb 38px, #fffefa 39px); }
+@media (min-width: 768px) {
+  .order-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .order-hint-desktop { display: block; }
+  .order-hint-mobile { display: none; }
+}
+.order-return { display: block; margin: 0 auto 1rem; padding: .5rem .9rem; border: 1px solid #758b86; border-radius: .5rem; background: #fff; color: var(--color-text); }
+.order-return[hidden], .order-card[hidden], [data-order-empty][hidden] { display: none; }
+.order-drag-preview { position: fixed; z-index: 10000; pointer-events: none; transform: translate(-50%, -120%); padding: .7rem; border: 2px solid #758b86; border-radius: .65rem; background: #e7f4f2; color: var(--color-text); }
 .quiz-feedback:not(:empty) { margin-block-start: 1rem; border-radius: .5rem; padding: 1rem; font-size: .95rem; border: 1px solid currentColor; }
 .feedback-correct { background: #e7f4f2; color: #23474d; }
 .feedback-partial, .feedback-missing { background: #f8f3d5; color: #655a0b; }
