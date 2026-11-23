@@ -13,7 +13,7 @@ const startLink = document.querySelector('.hero-actions a[href="#step-goal"]');
 // Follow the visual order without positive tabindex values; preserve reverse navigation.
 function redirectTab(from, target, backwards = false) {
   from?.addEventListener('keydown', event => {
-    if (event.key !== 'Tab' || event.shiftKey !== backwards || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.target !== from || event.key !== 'Tab' || event.shiftKey !== backwards || event.altKey || event.ctrlKey || event.metaKey) return;
     const next = target();
     if (!next || !next.getClientRects().length) return;
     event.preventDefault();
@@ -32,6 +32,18 @@ redirectTab(greetingButtons.at(-1), () => globeControl?.hidden ? startLink : nul
 redirectTab(startLink, () => globeControl && !globeControl.hidden ? globeControl : greetingButtons.at(-1), true);
 redirectTab(startLink, () => progressLinks[0]);
 redirectTab(progressLinks[0], () => startLink, true);
+progressLinks.forEach((link, index) => {
+  redirectTab(link, () => sections[index]);
+  redirectTab(sections[index], () => link, true);
+  if (index < 3) {
+    redirectTab(sections[index], () => progressLinks[index + 1]);
+    redirectTab(progressLinks[index + 1], () => sections[index], true);
+  }
+});
+// Keep the standalone plan link accessible after its eight controls and before stage 5.
+const planLink = document.querySelector('#step-plan .activity-link');
+redirectTab(planLink, () => progressLinks[4]);
+redirectTab(progressLinks[4], () => planLink, true);
 let selectedSection = null;
 let selectedSectionSeen = false;
 let currentProgressIndex = 0;
