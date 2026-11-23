@@ -1,3 +1,4 @@
+import { watchSecretWord } from './easter-egg.js';
 export function sendMessage(type, payload = {}) {
   if (window.parent === window || window.location.origin === 'null') return;
   window.parent.postMessage({ source: 'school-new-activity', type, ...payload }, window.location.origin);
@@ -16,4 +17,6 @@ if (typeof window !== 'undefined') {
   document.addEventListener('shown.bs.collapse', reportHeight);
   document.addEventListener('hidden.bs.collapse', reportHeight);
   document.fonts.ready.then(reportHeight);
+  // Easter egg: pass the secret word typed inside the activity up to the main page.
+  if (window.parent !== window) watchSecretWord(() => sendMessage('secret-word'));
 }

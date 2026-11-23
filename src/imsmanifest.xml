@@ -33,11 +33,14 @@
       <file href="css/styles.css" />
       <file href="index.html" />
       <file href="js/activity-bridge.js" />
+      <file href="js/easter-egg.js" />
       <file href="js/main.js" />
+      <file href="js/pencil-cursor.js" />
       <file href="js/quiz-data.js" />
       <file href="js/quiz.js" />
       <file href="js/scorm-session.js" />
       <file href="js/study-plan.js" />
+      <file href="js/time-picker.js" />
     </resource>
   </resources>
 </manifest>

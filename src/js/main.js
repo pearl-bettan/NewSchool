@@ -70,17 +70,11 @@ const observer = new IntersectionObserver(entries => {
   if (current) updateProgress(sections.indexOf(current));
 }, { rootMargin: '-10% 0px -25% 0px' });
 sections.forEach(section => observer.observe(section));
-// Chrome shows a custom CSS cursor inside an iframe only while the pointer is within the
-// top "window height" of that iframe. With a mouse, keep the quiz frame shorter than the
-// window (it scrolls inside) so the pencil cursor works on every question.
-const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+// The frame always takes the full height of its content, so the page has no inner scroll.
 const frameContentHeights = new Map();
 function setFrameHeight(frame, contentHeight) {
   frameContentHeights.set(frame, contentHeight);
-  const limit = window.innerHeight;
-  const capped = frame.id === 'quiz-frame' && finePointer.matches && contentHeight > limit;
-  frame.style.height = `${capped ? limit : contentHeight}px`;
-  frame.classList.toggle('is-scrollable', capped);
+  frame.style.height = `${contentHeight}px`;
 }
 window.addEventListener('resize', () => frameContentHeights.forEach((height, frame) => setFrameHeight(frame, height)));
 window.addEventListener('message', event => {
