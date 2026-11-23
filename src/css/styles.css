@@ -496,6 +496,7 @@ html:not(.embedded) .quiz-body {
 .skip-link:focus { position: fixed; inset-block-start: 1rem; inset-inline-start: 1rem; background: white; padding: 1rem; z-index: 2000; }
 .navbar-toggler { min-width: 44px; min-height: 44px; border-color: #758b86; }
 .form-hint { font-size: .9rem; color: var(--color-muted); }
+.form-hint.limit-reached { color: #a52121; font-weight: 700; }
 
 /* Credits page */
 .credits-back { font-weight: 650; text-decoration: none; }

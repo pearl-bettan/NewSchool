@@ -34,7 +34,7 @@ export const QUESTIONS = [
     correct: 'היעד כולל פעולה מוגדרת בחומר הלימוד, כמות ושעת סיום — בדיוק שלושת המרכיבים שלמדנו.', partial: 'הכמות ושעת הסיום מוגדרות, אך „ללמוד לבוחן” אינו מבהיר איזו פעולה לבצע. אפשר לבחור פתרון שאלות או קריאת עמודים ולחזור לשלב 1.', wrong: 'נגדיר פעולה, כמות ומועד כפי שלמדנו בשלב 1.', missing: 'יש לבחור פעולה, להזין כמות ולציין שעת סיום.'
   } }
 ];
-export const OPEN_ANSWER_LIMIT = 2000;
+export const OPEN_ANSWER_LIMIT = 255;
 export const SUSPEND_DATA_LIMIT = 4096;
 
 // Forms are grouped by concept so several matches count only once.

@@ -18,7 +18,7 @@ export function evaluateOpenAnswer(answer) {
     return new RegExp(`(?<![\\p{L}\\p{M}\\p{N}])(?:${[...nouns, ...verbs].join('|')})(?![\\p{L}\\p{M}\\p{N}])`, 'u').test(text);
   }).length;
   const missing = [];
-  if (answer.length > OPEN_ANSWER_LIMIT) missing.push(`לקצר את התשובה ל־2,000 יחידות UTF-16 לכל היותר (כעת ${answer.length})`);
+  if (answer.length > OPEN_ANSWER_LIMIT) missing.push(`לקצר את התשובה ל־${OPEN_ANSWER_LIMIT} תווים לכל היותר (כעת ${answer.length})`);
   if (openAnswerPayload(answer).length > SUSPEND_DATA_LIMIT) missing.push('לקצר את התשובה כדי שתתאים למקום הזמין לשמירה');
   if (words < 15) missing.push(`לפחות 15 מילים (כעת ${words})`);
   if (concepts < 2) missing.push(`לפחות שני מושגים שונים מהרשימה (כעת ${concepts})`);
@@ -262,6 +262,9 @@ function initializeQuiz() {
   initializeOrdering(form);
   const openAnswer = document.querySelector('#q6-answer');
   const openFeedback = document.querySelector('#q6-feedback');
+  const lengthHint = document.querySelector('#q6-storage');
+  const updateLengthHint = () => lengthHint.classList.toggle('limit-reached', openAnswer.value.length >= OPEN_ANSWER_LIMIT);
+  updateLengthHint();
   function showOpenFeedback(result) {
     const messageChanged = openFeedback.textContent !== result.message;
     openFeedback.className = `quiz-feedback feedback-${result.valid ? 'correct' : 'invalid'}`;
@@ -294,7 +297,7 @@ function initializeQuiz() {
     }
   };
   form.addEventListener('input', event => {
-    if (event.target === openAnswer) showOpenFeedback(evaluateOpenAnswer(openAnswer.value));
+    if (event.target === openAnswer) { updateLengthHint(); showOpenFeedback(evaluateOpenAnswer(openAnswer.value)); }
     updateAvailability();
   });
   form.addEventListener('change', event => {
@@ -346,7 +349,7 @@ function initializeQuiz() {
     document.querySelectorAll('.quiz-feedback').forEach(element => { element.textContent = ''; element.className = 'quiz-feedback'; });
     form.querySelectorAll('[aria-invalid]').forEach(element => element.removeAttribute('aria-invalid'));
     document.querySelector('#quiz-summary').hidden = true;
-    requestAnimationFrame(() => { reportHeight(); form.querySelector('input').focus(); });
+    requestAnimationFrame(() => { updateLengthHint(); reportHeight(); form.querySelector('input').focus(); });
   });
   document.querySelector('#summary-content').addEventListener('click', event => {
     const link = event.target.closest('[data-revisit]');
