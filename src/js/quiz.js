@@ -50,6 +50,7 @@ export function evaluateQuestion(question, answer) {
     return question.correct.includes(answer.action) ? result('correct', question.maxPoints) : result('partial', question.maxPoints * 2 / 3);
   }
 }
+// Calculate the score from the five graded results; the open answer is excluded.
 export function calculateScore(results) {
   const points = results.reduce((sum, result) => sum + result.points, 0);
   const maxPoints = results.reduce((sum, result) => sum + result.maxPoints, 0);
@@ -138,6 +139,7 @@ function navigateRadioOptions(event) {
   nextOption.focus();
 }
 
+// Keep one ordering state for drag, touch, and keyboard interactions.
 function initializeOrdering(form) {
   const question = document.querySelector('#q3');
   const cards = [...question.querySelectorAll('[data-order-card]')];

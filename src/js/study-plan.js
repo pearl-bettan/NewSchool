@@ -33,6 +33,7 @@ studyPlan.innerHTML = STUDY_PLAN.map(renderDay).join('');
 
 let pendingButton = null;
 
+// Open the explanation when keyboard focus reaches an activity button.
 function openFocusedBlock() {
   const button = pendingButton;
   if (!button || document.activeElement !== button || !button.matches(':focus-visible')) return;

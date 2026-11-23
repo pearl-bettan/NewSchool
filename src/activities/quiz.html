@@ -29,6 +29,7 @@
       <noscript>יש להפעיל JavaScript כדי להשתמש בפעילות.</noscript>
       <form id="quiz-form" novalidate>
         <div id="quiz-questions"></div>
+        <!-- The open question must meet the submission requirements but adds no points. -->
         <fieldset id="q6" class="question-card">
           <legend>6. כיצד אפשר לחלק שלושה ימי הכנה לבוחן בשלושה נושאים, וכיצד אפשר לבדוק שהחומר הובן? <span class="required-note">(חובה, ללא ניקוד)</span></legend>
           <div class="question-card-body">
@@ -44,6 +45,7 @@
           <button type="reset" class="btn btn-outline-primary">אפשר לנסות שוב</button>
         </div>
       </form>
+      <!-- Show the summary after checking, with guidance or the final score. -->
       <div id="quiz-summary" class="summary-card" hidden>
         <h2 id="summary-heading" tabindex="-1">סיכום התשובות</h2>
         <div id="summary-content"></div>

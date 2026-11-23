@@ -3,6 +3,7 @@ export function sendMessage(type, payload = {}) {
   if (window.parent === window || window.location.origin === 'null') return;
   window.parent.postMessage({ source: 'school-new-activity', type, ...payload }, window.location.origin);
 }
+// Send the measured activity height so the parent can resize its iframe.
 export function reportHeight() {
   const content = document.querySelector('main');
   const height = Math.ceil(content.getBoundingClientRect().height + content.offsetTop + 8);
