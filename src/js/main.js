@@ -5,6 +5,33 @@ const frames = [...document.querySelectorAll('.activity-frame')];
 const sections = [...document.querySelectorAll('main > section')];
 const progress = document.querySelector('[role="progressbar"]');
 const progressLinks = [...document.querySelectorAll('.progress-step')];
+const navigationLinks = [...document.querySelectorAll('#main-nav .nav-link')];
+const greetingButtons = [...document.querySelectorAll('.greeting-button')];
+const globeControl = document.querySelector('#globe-motion-toggle');
+const startLink = document.querySelector('.hero-actions a[href="#step-goal"]');
+
+// Follow the visual order without positive tabindex values; preserve reverse navigation.
+function redirectTab(from, target, backwards = false) {
+  from?.addEventListener('keydown', event => {
+    if (event.key !== 'Tab' || event.shiftKey !== backwards || event.altKey || event.ctrlKey || event.metaKey) return;
+    const next = target();
+    if (!next || !next.getClientRects().length) return;
+    event.preventDefault();
+    next.focus();
+  });
+}
+redirectTab(navigationLinks.at(-1), () => greetingButtons[0]);
+redirectTab(document.querySelector('.navbar-toggler'), () =>
+  navigationLinks.at(-1)?.getClientRects().length ? null : greetingButtons[0]);
+redirectTab(greetingButtons[0], () => {
+  const lastLink = navigationLinks.at(-1);
+  return lastLink?.getClientRects().length ? lastLink : document.querySelector('.navbar-toggler');
+}, true);
+redirectTab(globeControl, () => startLink);
+redirectTab(greetingButtons.at(-1), () => globeControl?.hidden ? startLink : null);
+redirectTab(startLink, () => globeControl && !globeControl.hidden ? globeControl : greetingButtons.at(-1), true);
+redirectTab(startLink, () => progressLinks[0]);
+redirectTab(progressLinks[0], () => startLink, true);
 let selectedSection = null;
 let selectedSectionSeen = false;
 let currentProgressIndex = 0;
