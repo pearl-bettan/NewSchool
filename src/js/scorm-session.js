@@ -91,6 +91,16 @@ export function submitToLms(snapshot) {
         if (!scorm.set(prefix + field, value)) return { ok: false, reason: 'error' };
       }
     }
+    // Record the ungraded open answer separately for the interactions report.
+    const openPrefix = `cmi.interactions.${count + snapshot.interactions.length}.`;
+    for (const [field, value] of [
+      ['id', `q6_${count + snapshot.interactions.length}`],
+      ['type', 'fill-in'],
+      ['student_response', snapshot.openAnswer],
+      ['result', 'neutral']
+    ]) {
+      if (!scorm.set(openPrefix + field, value)) return { ok: false, reason: 'error' };
+    }
     for (const [field, value] of [
       ['cmi.core.score.min', '0'], ['cmi.core.score.max', '100'],
       ['cmi.core.score.raw', String(snapshot.score.percent)],
