@@ -14,6 +14,7 @@
   <resources>
     <resource identifier="learning-resource" type="webcontent" adlcp:scormtype="sco" href="index.html">
       <file href="CREDITS.md" />
+      <file href="README.md" />
       <file href="activities/quiz.html" />
       <file href="activities/study-plan.html" />
       <file href="assets/images/hero.svg" />

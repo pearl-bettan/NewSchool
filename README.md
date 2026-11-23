@@ -1,5 +1,7 @@
 # New School – מתכננים למידה לבוחן
 
+> לתיעוד הגרסה הנוכחית וחבילת SCORM 1.2 ראו [src/README.md](src/README.md). ההסברים בהמשך מתארים את שלב 1 ואינם מעודכנים לשאלון ולחיבור Moodle הנוכחיים.
+
 יחידת למידה בעברית וב־RTL, כ־10 דקות, לפי school-new-learning-page. HTML5, Bootstrap RTL 5.3.3 ו־JavaScript ES modules, ללא שלב build וללא ספריות נוספות.
 
 ## הפעלה
